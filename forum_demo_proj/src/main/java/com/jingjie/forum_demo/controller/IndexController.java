@@ -1,8 +1,14 @@
 package com.jingjie.forum_demo.controller;
 
+import com.jingjie.forum_demo.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -45,7 +51,26 @@ public class IndexController {
     // loading a freemarker template : .ftl file in /resources/templates
     @RequestMapping (path = {"/template"}, method = RequestMethod.GET)
     public String template (Model model) {
+
         model.addAttribute("value1", "vvvv");
-        return "template";
+
+        List<String> colors = Arrays.asList(new String[] {"RED", "YELLOW", "BLUE"});
+
+        model.addAttribute("colors", colors);
+
+        Map<Integer, Integer> squares = new HashMap<>();
+        for (int i = 0; i < 2; i ++) {
+            squares.put(i + 1, (i + 1) * (i + 1));
+        }
+        model.addAttribute("squares", squares);
+
+        // use customised java class
+        User user = new User("Damn");
+        model.addAttribute(user);
+
+
+       return "template";
     }
+
+    // get info regardign header and
 }
