@@ -33,9 +33,16 @@ public class UserDaoTest {
     @Autowired
     UserDao userDaoTest;
 
-    // Test addUser() method
+    /**
+     * Test UserDao methods.
+     * 1) addUser(User):void method
+     * 2) getUserViaId(int):User method
+     * 3) getUserViaName(String):User method
+     * 4) deleteUserViaId(int):void method
+     * 5) updatePassword(int):void method
+     */
     @Test
-    public void addUserTest() {
+    public void userDaoTest() {
 
         Random random = new Random();
 
@@ -48,14 +55,33 @@ public class UserDaoTest {
             userDaoTest.addUser(user);
         }
 
+        // getUserViaId
+        User userTest = new User();
+
+        userTest = userDaoTest.getUserViaId(2);
+        Assert.assertEquals(2, userTest.getId());
+
+        userTest = userDaoTest.getUserViaId(12);
+        Assert.assertNull(userTest);
+
+        // getUSerViaName
+        userTest = userDaoTest.getUserViaName("user2");
+        Assert.assertEquals("user2", userTest.getName());
+
+        userTest = userDaoTest.getUserViaName("random");
+        Assert.assertNull(userTest);
+
+        // deleteUserViaId
+        userDaoTest.deleteUserViaId(2);
+        userTest = userDaoTest.getUserViaName("user2");
+        Assert.assertNull(userTest);
+
+        // updatePassword
+        userTest = userDaoTest.getUserViaId(3);
+        userTest.setPassword("333");
+        userDaoTest.updatePassword(userTest);
+        userTest = userDaoTest.getUserViaId(3);
+        Assert.assertEquals("333", userTest.getPassword());
+
     }
-
-    // Test getUserViaId(int):User method
-
-    // Test getUserViaName(String):User method
-
-    // Test deleteUserViaId(int):void method
-
-    // Test updatePassword(int):void method
-
 }
