@@ -23,7 +23,7 @@
     <#-- access customised java class -->
     <#-- access private field object.field -->
     <#-- access methods: object.methods() -->
-        <p> The user name is: ${user.getUserName()}
+        <p> The user name is: ${user.getName()}
 
     <#-- define an variable -->
     <#assign title = "JJ's forum">

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.RedirectViewControllerRegistration;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
@@ -69,7 +68,8 @@ public class IndexController {
         model.addAttribute("squares", squares);
 
         // use customised java class
-        User user = new User("Damn");
+        User user = new User();
+        user.setName("Damn");
         model.addAttribute(user);
 
 

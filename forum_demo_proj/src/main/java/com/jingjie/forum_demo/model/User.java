@@ -2,17 +2,51 @@ package com.jingjie.forum_demo.model;
 
 public class User {
 
-    private String userName;
+    private int id;
+    private String name;
+    private String password;
+    private String salt;
+    private String headUrl;
 
-    public User(String userName) {
-        this.userName = userName;
+    public User() { }
+
+    public int getId() {
+        return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
     }
 }
