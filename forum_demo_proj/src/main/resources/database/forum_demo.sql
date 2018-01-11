@@ -8,3 +8,15 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name_UNIQUE` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE `question` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `content` text NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_date` datetime NOT NULL,
+  `comment_count` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+

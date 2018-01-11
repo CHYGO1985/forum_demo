@@ -33,16 +33,9 @@ public class UserDaoTest {
     @Autowired
     UserDao userDaoTest;
 
-    /**
-     * Test UserDao methods.
-     * 1) addUser(User):void method
-     * 2) getUserViaId(int):User method
-     * 3) getUserViaName(String):User method
-     * 4) deleteUserViaId(int):void method
-     * 5) updatePassword(int):void method
-     */
+    // init user table method
     @Test
-    public void userDaoTest() {
+    public void initUserTable() {
 
         Random random = new Random();
 
@@ -54,6 +47,20 @@ public class UserDaoTest {
             user.setSalt("");
             userDaoTest.addUser(user);
         }
+    }
+
+    /**
+     * Test UserDao methods.
+     * 1) addUser(User):void method
+     * 2) getUserViaId(int):User method
+     * 3) getUserViaName(String):User method
+     * 4) deleteUserViaId(int):void method
+     * 5) updatePassword(int):void method
+     */
+    @Test
+    public void userDaoTest() {
+
+        initUserTable();
 
         // getUserViaId
         User userTest = new User();

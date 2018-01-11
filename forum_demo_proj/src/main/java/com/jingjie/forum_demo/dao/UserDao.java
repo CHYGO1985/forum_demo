@@ -10,15 +10,15 @@ import org.springframework.stereotype.Repository;
  *
  * @author jingjiejiang
  * @history
- * 1. created on Jan, 2018
+ * 1. created on Jan 9, 2018
  */
 @Mapper
 @Repository
 public interface UserDao {
 
-    String USER_TABLE = "user";
-    String INSERT_FIELDS = " name, password, salt, head_url";
-    String SELECT_FIELDS = " id, name, password, salt, head_url";
+    final String USER_TABLE = "user";
+    final String INSERT_FIELDS = " name, password, salt, head_url ";
+    final String SELECT_FIELDS = " id, name, password, salt, head_url ";
 
     // insert a record into user table
     @Insert({"Insert into ", USER_TABLE, " (" + INSERT_FIELDS + ") values " +
@@ -35,10 +35,9 @@ public interface UserDao {
 
     // update a user's password accroding to a given user id
     @Update({"update ", USER_TABLE, " set password = #{password} where id = #{id}"})
-    void updatePassword(int id);
+    void updatePassword(User user);
 
     // delete a user's record accroding to a given user id
-    @Delete({"delete from ", USER_TABLE, " where id = #{id]"})
+    @Delete({"delete from ", USER_TABLE, " where id = #{id}"})
     void deleteUserViaId(int id);
-
 }
