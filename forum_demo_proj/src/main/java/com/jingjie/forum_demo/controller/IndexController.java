@@ -25,16 +25,18 @@ import java.util.*;
  * @history
  * 1. Jan 7, 2018
  */
-@Controller
+ //@Controller
 public class IndexController {
 
     // visit page via /index or /
+    /*
     @RequestMapping (path = {"/", "/index"}, method = {RequestMethod.GET})
     @ResponseBody
     public String index() {
 
         return "Hello JJ Forum";
     }
+    */
 
     // visit page via parameters in URL
     // get papameters from request "?type=2&key=aa"
