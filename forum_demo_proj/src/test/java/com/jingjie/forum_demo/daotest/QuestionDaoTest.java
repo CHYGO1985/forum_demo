@@ -41,13 +41,13 @@ public class QuestionDaoTest {
         for (int i = 0; i < 11; i ++) {
 
             Question question = new Question();
-            question.setUser_id(i + 1);
+            question.setUserId(i + 1);
             question.setTitle(String.format("Test %d", i + 1));
             Date date = new Date();
             date.setTime(date.getTime() + 1000 * 3600 * i * 5);
-            question.setCreated_date(date);
+            question.setCreateDate(date);
             question.setContent(String.format("XXXXXX %d", i + 1));
-            question.setComment_count(i);
+            question.setCommentCount(i);
 
             questionDaoTest.addQuestion(question);
         }

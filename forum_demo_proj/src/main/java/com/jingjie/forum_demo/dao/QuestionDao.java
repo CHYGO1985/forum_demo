@@ -25,7 +25,7 @@ public interface QuestionDao {
 
     // insert question into question table
     @Insert ({"insert into ", QUSTION_TABLE, " (", INSERT_FIELDS,
-            ") values (#{title}, #{content}, #{user_id}, #{created_date}, #{comment_count})"})
+            ") values (#{title}, #{content}, #{userId}, #{createDate}, #{commentCount})"})
     void addQuestion(Question question);
 
     // get a question via its id

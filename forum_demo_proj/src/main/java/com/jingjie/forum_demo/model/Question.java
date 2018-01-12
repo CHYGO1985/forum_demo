@@ -15,9 +15,15 @@ public class Question {
     private int id;
     private String title;
     private String content;
-    private int user_id;
-    private Date created_date;
-    private int comment_count;
+    private int userId;
+    private Date createDate;
+    private int commentCount;
+
+    // NOTE: The createDate must be initialised, otherwise it will not receive date ]
+    // from datebase when reading
+    public Question() {
+        createDate = new Date();
+    }
 
     public int getId() {
         return id;
@@ -43,27 +49,27 @@ public class Question {
         this.content = content;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public Date getCreated_date() {
-        return created_date;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreated_date(Date created_date) {
-        this.created_date = created_date;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public int getComment_count() {
-        return comment_count;
+    public int getCommentCount() {
+        return commentCount;
     }
 
-    public void setComment_count(int comment_count) {
-        this.comment_count = comment_count;
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
     }
 }
