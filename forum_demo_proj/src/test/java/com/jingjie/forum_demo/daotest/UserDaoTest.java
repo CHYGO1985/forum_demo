@@ -1,7 +1,9 @@
 package com.jingjie.forum_demo.daotest;
 
 import com.jingjie.forum_demo.ForumDemoApplication;
+import com.jingjie.forum_demo.dao.QuestionDao;
 import com.jingjie.forum_demo.dao.UserDao;
+import com.jingjie.forum_demo.model.Question;
 import com.jingjie.forum_demo.model.User;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -33,6 +36,42 @@ public class UserDaoTest {
     @Autowired
     UserDao userDaoTest;
 
+    // This method is to init the Question and User table at the same time without
+    // dropping the chang of another.
+    @Autowired
+    QuestionDao questionDaoTest;
+
+    // init user table method
+    @Test
+    public void initUserTable() {
+
+        Random random = new Random();
+
+        for (int i = 0; i < 11; i ++) {
+            User user = new User();
+            user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
+            user.setName(String.format("user%d", i + 1));
+            user.setPassword("");
+            user.setSalt("");
+            userDaoTest.addUser(user);
+        }
+
+        for (int i = 0; i < 11; i ++) {
+
+            Question question = new Question();
+            question.setUserId(i + 1);
+            question.setTitle(String.format("Test %d", i + 1));
+            Date date = new Date();
+            date.setTime(date.getTime() + 1000 * 3600 * i * 5);
+            question.setCreateDate(date);
+            question.setContent(String.format("XXXXXX %d", i + 1));
+            question.setCommentCount(i);
+
+            questionDaoTest.addQuestion(question);
+        }
+    }
+
+    /*
     // init user table method
     @Test
     public void initUserTable() {
@@ -48,6 +87,8 @@ public class UserDaoTest {
             userDaoTest.addUser(user);
         }
     }
+
+    */
 
     /**
      * Test UserDao methods.
