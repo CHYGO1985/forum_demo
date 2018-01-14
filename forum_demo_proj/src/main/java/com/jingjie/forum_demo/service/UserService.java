@@ -69,7 +69,7 @@ public class UserService {
         // check whether the username exist already
         if (userDao.getUserViaName(username) != null) {
 
-            map.put("msg", "The given username" + username + "has been used.");
+            map.put("msg", "The given username: " + username + " has been used.");
             return map;
         }
 
@@ -83,6 +83,11 @@ public class UserService {
         user.setHeadUrl(url);
         user.setPassword(CryptUtil.MD5(password + salt));
         userDao.addUser(user);
+
+        // create a login ticket, add it to the databse and add it to the returning map
+        String ticket = createTicket(user.getId());
+        map.put("ticket", ticket);
+        map.put("userId", user.getId());
 
         return map;
     }
