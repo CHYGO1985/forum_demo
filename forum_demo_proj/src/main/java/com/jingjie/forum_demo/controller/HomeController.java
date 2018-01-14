@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import util.ForumDemoAppUtil;
 
 import javax.websocket.server.PathParam;
 import java.util.LinkedList;
@@ -82,7 +83,7 @@ public class HomeController {
     public String home(Model model) {
 
         model.addAttribute("viewObjList", getLastestQuestionsInfo(0, 0, 10));
-        return "index";
+        return ForumDemoAppUtil.INDEX_TEMPLATE;
     }
 
     /**
@@ -98,6 +99,6 @@ public class HomeController {
 
         model.addAttribute("viewObjList", getLastestQuestionsInfo(userId, 0, 10));
 
-        return "index";
+        return ForumDemoAppUtil.INDEX_TEMPLATE;
     }
 }

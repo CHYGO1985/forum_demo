@@ -2,7 +2,9 @@ package util;
 
 public class ForumDemoAppUtil {
 
-    /* URI related constants */
+    /* templates related constants */
+    public static final String INDEX_TEMPLATE = "index";
+    public static final String LOGIN_TEMPLATE = "login";
 
 
     /* Login related constants */

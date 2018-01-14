@@ -66,12 +66,12 @@ public class LoginController {
             model.addAttribute(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
                     map.get(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY));
 
-            return "login";
+            return ForumDemoAppUtil.LOGIN_TEMPLATE;
         }
         catch (Exception exp) {
 
             log.error("Login Error :" + exp.getMessage());
-            return "login";
+            return ForumDemoAppUtil.LOGIN_TEMPLATE;
         }
     }
 
@@ -79,7 +79,7 @@ public class LoginController {
     @RequestMapping (path = {"/regislogin"}, method = {RequestMethod.GET})
     public String registerAndLogin () {
 
-        return "login";
+        return ForumDemoAppUtil.LOGIN_TEMPLATE;
     }
 
     // The method for login a user.
@@ -115,12 +115,12 @@ public class LoginController {
             model.addAttribute(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
                     map.get(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY));
 
-            return "login";
+            return ForumDemoAppUtil.LOGIN_TEMPLATE;
         }
         catch (Exception exp) {
 
             log.error("Login Error :" + exp.getMessage());
-            return "login";
+            return ForumDemoAppUtil.LOGIN_TEMPLATE;
         }
 
     }
