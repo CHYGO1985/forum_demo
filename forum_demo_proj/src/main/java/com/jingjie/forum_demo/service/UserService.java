@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import util.CryptUtil;
+import util.ForumDemoAppUtil;
 
 import java.util.*;
 
@@ -21,6 +22,9 @@ import java.util.*;
  */
 @Service
 public class UserService {
+
+    final int USER_PROFILE_COUNT = 1000;
+    final int TICKET_DEF_EXPIRE_TIME = 1000 * 3600 * 24;
 
     @Autowired
     UserDao userDao;
@@ -55,21 +59,24 @@ public class UserService {
         // check whether the username is null
         if (StringUtils.isBlank(username) == true) {
 
-            map.put("msg", "The user name cannot be NULL!");
+            map.put(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    "The user name cannot be NULL!");
             return map;
         }
 
         // check whether the password is null
         if (StringUtils.isBlank(password) == true) {
 
-            map.put("msg", "The password cannot be NULL!");
+            map.put(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    "The password cannot be NULL!");
             return map;
         }
 
         // check whether the username exist already
         if (userDao.getUserViaName(username) != null) {
 
-            map.put("msg", "The given username: " + username + " has been used.");
+            map.put(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    "The given username: " + username + " has been used.");
             return map;
         }
 
@@ -79,14 +86,14 @@ public class UserService {
         String salt = UUID.randomUUID().toString().substring(0, 5);
         user.setSalt(salt);
         String url = String.format("http://images.nowcoder.com/head/%dt.png",
-                new Random().nextInt(1000));
+                new Random().nextInt(USER_PROFILE_COUNT));
         user.setHeadUrl(url);
         user.setPassword(CryptUtil.MD5(password + salt));
         userDao.addUser(user);
 
         // create a login ticket, add it to the databse and add it to the returning map
         String ticket = createTicket(user.getId());
-        map.put("ticket", ticket);
+        map.put(ForumDemoAppUtil.USER_TOKEN, ticket);
         map.put("userId", user.getId());
 
         return map;
@@ -107,14 +114,16 @@ public class UserService {
         // check whether the username is null
         if (StringUtils.isBlank(username) == true) {
 
-            map.put("msg", "The user name cannot be NULL!");
+            map.put(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    "The user name cannot be NULL!");
             return map;
         }
 
         // check whether the password is null
         if (StringUtils.isBlank(password) == true) {
 
-            map.put("msg", "The password cannot be NULL!");
+            map.put(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    "The password cannot be NULL!");
             return map;
         }
 
@@ -122,7 +131,8 @@ public class UserService {
         User user = userDao.getUserViaName(username);
         if(user == null) {
 
-            map.put("msg", "The username or password is not correct.");
+            map.put(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    "The username or password is not correct.");
             return map;
         }
 
@@ -130,12 +140,13 @@ public class UserService {
         if (CryptUtil.MD5(password + user.getSalt()).equals(
                 user.getPassword()) == false) {
 
-            map.put("msg", "The username or password is not correct.");
+            map.put(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    "The username or password is not correct.");
         }
 
         // create a login ticket, add it to the databse and add it to the returning map
         String ticket = createTicket(user.getId());
-        map.put("ticket", ticket);
+        map.put(ForumDemoAppUtil.USER_TOKEN, ticket);
         map.put("userId", user.getId());
 
         return map;
@@ -152,10 +163,10 @@ public class UserService {
 
         LoginTicket logTicket = new LoginTicket();
         logTicket.setUserId(userId);
-        logTicket.setStatus(0);
+        logTicket.setStatus(ForumDemoAppUtil.VALID_TICKET);
 
         Date date = new Date();
-        date.setTime(date.getTime() + 1000 * 3600 * 24);
+        date.setTime(date.getTime() + TICKET_DEF_EXPIRE_TIME);
         logTicket.setExpired(date);
 
         String ticket = UUID.randomUUID().toString().replaceAll("-", "");

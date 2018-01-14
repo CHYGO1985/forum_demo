@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import util.ForumDemoAppUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +27,7 @@ import java.util.Map;
 public class LoginController {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    final String USER_TOKEN = "ticket";
     final int COOKIE_DEF_AVAIL_TIME = 2600 * 24 * 5;
-    final String LOGIN_ERROR_MSG_KEY = "msg";
 
     @Autowired
     UserService userService;
@@ -51,10 +50,10 @@ public class LoginController {
 
             Map<String, Object> map = userService.register(username, password);
 
-            if (map.containsKey(USER_TOKEN)) {
+            if (map.containsKey(ForumDemoAppUtil.USER_TOKEN)) {
 
-                Cookie cookie = new Cookie(USER_TOKEN,
-                        map.get(USER_TOKEN).toString());
+                Cookie cookie = new Cookie(ForumDemoAppUtil.USER_TOKEN,
+                        map.get(ForumDemoAppUtil.USER_TOKEN).toString());
                 cookie.setPath("/");
                 if (isRemembered == true) {
                     cookie.setMaxAge(COOKIE_DEF_AVAIL_TIME);
@@ -64,8 +63,8 @@ public class LoginController {
                 return "redirect:/";
             }
 
-            model.addAttribute(LOGIN_ERROR_MSG_KEY,
-                    map.get(LOGIN_ERROR_MSG_KEY));
+            model.addAttribute(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    map.get(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY));
 
             return "login";
         }
@@ -100,10 +99,10 @@ public class LoginController {
 
             Map<String, Object> map = userService.login(username, password);
 
-            if (map.containsKey(USER_TOKEN)) {
+            if (map.containsKey(ForumDemoAppUtil.USER_TOKEN)) {
 
-                Cookie cookie = new Cookie(USER_TOKEN,
-                        map.get(USER_TOKEN).toString());
+                Cookie cookie = new Cookie(ForumDemoAppUtil.USER_TOKEN,
+                        map.get(ForumDemoAppUtil.USER_TOKEN).toString());
                 cookie.setPath("/");
                 if (isRemembered == true) {
                     cookie.setMaxAge(COOKIE_DEF_AVAIL_TIME);
@@ -113,8 +112,8 @@ public class LoginController {
                 return "redirect:/";
             }
 
-            model.addAttribute(LOGIN_ERROR_MSG_KEY,
-                    map.get(LOGIN_ERROR_MSG_KEY));
+            model.addAttribute(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY,
+                    map.get(ForumDemoAppUtil.LOGIN_ERROR_MSG_KEY));
 
             return "login";
         }
