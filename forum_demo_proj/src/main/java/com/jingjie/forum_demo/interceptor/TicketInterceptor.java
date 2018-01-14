@@ -47,7 +47,7 @@ public class TicketInterceptor implements HandlerInterceptor {
         if (cookies != null) {
 
             for (Cookie cookie : cookies) {
-                if (cookie.getName() == ForumDemoAppUtil.USER_TOKEN) {
+                if (cookie.getName().equals(ForumDemoAppUtil.USER_TOKEN)) {
                     ticket = cookie.getValue();
                     break;
                 }
@@ -69,7 +69,7 @@ public class TicketInterceptor implements HandlerInterceptor {
             userHoler.setUser(user);
         }
 
-        return false;
+        return true;
     }
 
     @Override
