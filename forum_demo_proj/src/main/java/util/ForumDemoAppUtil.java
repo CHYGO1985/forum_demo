@@ -1,5 +1,13 @@
 package util;
 
+/**
+ *
+ * The class is to hold global constants.
+ *
+ * @author jingjiejiang
+ * @history
+ * 1. Created on Jan 14, 2018
+ */
 public class ForumDemoAppUtil {
 
     /* templates related constants */

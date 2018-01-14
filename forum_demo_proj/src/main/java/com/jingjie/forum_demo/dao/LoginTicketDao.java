@@ -37,7 +37,7 @@ public interface LoginTicketDao {
      * @return
      */
     @Select({"select ", SELECT_FIELDS, " from ", LOGTIC_TABLE, " where ticket=#{ticket}"})
-    LoginTicket getTicketViaId(String ticket);
+    LoginTicket getTikcetiaTikcetVal(String ticket);
 
     /**
      *
