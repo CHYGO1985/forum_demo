@@ -1,2 +1,2 @@
 # forum_demo
-It is a pilot forum project that is used SpringBoot + Freemarker.
+It is a pilot forum project that uses SpringBoot + Freemarker.
