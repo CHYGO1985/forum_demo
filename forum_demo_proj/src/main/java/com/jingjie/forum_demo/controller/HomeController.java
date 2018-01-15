@@ -12,9 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import util.ForumDemoAppUtil;
+import com.jingjie.forum_demo.util.ForumDemoAppUtil;
 
-import javax.websocket.server.PathParam;
 import java.util.LinkedList;
 import java.util.List;
 

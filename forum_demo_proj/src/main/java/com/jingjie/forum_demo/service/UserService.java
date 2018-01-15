@@ -7,8 +7,8 @@ import com.jingjie.forum_demo.model.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import util.CryptUtil;
-import util.ForumDemoAppUtil;
+import com.jingjie.forum_demo.util.CryptUtil;
+import com.jingjie.forum_demo.util.ForumDemoAppUtil;
 
 import java.util.*;
 
