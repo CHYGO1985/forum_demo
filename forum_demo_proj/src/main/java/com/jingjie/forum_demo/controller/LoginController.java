@@ -1,6 +1,7 @@
 package com.jingjie.forum_demo.controller;
 
 import com.jingjie.forum_demo.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class LoginController {
     public String register (Model model,
                             @RequestParam("username") String username,
                             @RequestParam("password") String password,
+                            @RequestParam(value = "next", required = false) String next,
                             @RequestParam(value = "rememberme", defaultValue = "false")
                             boolean isRemembered,
                             HttpServletResponse httpServletResponse) {
@@ -61,6 +63,12 @@ public class LoginController {
                 }
                 httpServletResponse.addCookie(cookie);
 
+                // check whether the next is null, if not rediret to next
+                if (StringUtils.isBlank(next) == false) {
+
+                    return "redirect:" + next;
+                }
+
                 return "redirect:/";
             }
 
@@ -78,8 +86,12 @@ public class LoginController {
 
     // The method for both login and register
     @RequestMapping (path = {"/regislogin"}, method = {RequestMethod.GET})
-    public String registerAndLogin () {
+    public String registerAndLogin (Model model,
+                                    @RequestParam(value = "next",
+                                            required = false)
+                                    String next) {
 
+        model.addAttribute("next", next);
         return ForumDemoAppUtil.LOGIN_TEMPLATE;
     }
 
@@ -88,6 +100,7 @@ public class LoginController {
     public String login (Model model,
                          @RequestParam("username") String username,
                          @RequestParam("password") String password,
+                         @RequestParam(value = "next", required = false) String next,
                          @RequestParam(value = "rememberme", defaultValue = "false")
                          boolean isRemembered,
                          HttpServletResponse httpServletResponse) {
@@ -110,6 +123,10 @@ public class LoginController {
                 }
                 httpServletResponse.addCookie(cookie);
 
+                if (StringUtils.isBlank(next) == false) {
+                    return "redirect:" + next;
+                }
+
                 return "redirect:/";
             }
 
@@ -127,7 +144,7 @@ public class LoginController {
 
     @RequestMapping (path = {"/logout"}, method = {RequestMethod.GET,
             RequestMethod.POST})
-    public String logout(@CookieValue("ticket") String ticket) {
+    public String logout(@CookieValue(ForumDemoAppUtil.USER_TOKEN) String ticket) {
 
         userService.logout(ticket);
         return "redirect:/";

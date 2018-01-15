@@ -1,5 +1,6 @@
 package com.jingjie.forum_demo.configuration;
 
+import com.jingjie.forum_demo.interceptor.LoginCheckingInterceptor;
 import com.jingjie.forum_demo.interceptor.TicketInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,13 @@ public class ForumDemoWebConfigurer extends WebMvcConfigurerAdapter {
     @Autowired
     TicketInterceptor ticketInterceptor;
 
+    @Autowired
+    LoginCheckingInterceptor loginCheckingInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(ticketInterceptor);
+        registry.addInterceptor(loginCheckingInterceptor).addPathPatterns("/userId/*");
         super.addInterceptors(registry);
     }
 }
