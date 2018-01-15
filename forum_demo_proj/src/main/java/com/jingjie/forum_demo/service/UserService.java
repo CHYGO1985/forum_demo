@@ -176,5 +176,9 @@ public class UserService {
 
         return logTicket.getTicket();
     }
+
+    public void logout(String ticket) {
+        loginTicketDao.updateStatus(ticket, ForumDemoAppUtil.INVALID_TICKET);
+    }
 }
 
