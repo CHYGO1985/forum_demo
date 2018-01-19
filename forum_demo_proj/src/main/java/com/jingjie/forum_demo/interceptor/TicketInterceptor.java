@@ -4,7 +4,7 @@ import com.jingjie.forum_demo.dao.LoginTicketDao;
 import com.jingjie.forum_demo.dao.UserDao;
 import com.jingjie.forum_demo.model.LoginTicket;
 import com.jingjie.forum_demo.model.User;
-import com.jingjie.forum_demo.model.UserHoler;
+import com.jingjie.forum_demo.model.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -34,7 +34,7 @@ public class TicketInterceptor implements HandlerInterceptor {
     LoginTicketDao loginTicketDao;
 
     @Autowired
-    UserHoler userHoler;
+    UserHolder userHolder;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -66,7 +66,7 @@ public class TicketInterceptor implements HandlerInterceptor {
 
             // get the user according to the userId stored in UserHoler
             User user = userDao.getUserViaId(loginTicket.getUserId());
-            userHoler.setUser(user);
+            userHolder.setUser(user);
         }
 
         return true;
@@ -76,8 +76,8 @@ public class TicketInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
 
         // if UserHolder has a user instance, add it to modelandview
-        if (modelAndView != null && userHoler.getUser() != null) {
-            modelAndView.addObject("user", userHoler.getUser());
+        if (modelAndView != null && userHolder.getUser() != null) {
+            modelAndView.addObject("user", userHolder.getUser());
         }
     }
 
@@ -85,6 +85,6 @@ public class TicketInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
 
         // remove the user from UserHolder
-        userHoler.removeUser();
+        userHolder.removeUser();
     }
 }

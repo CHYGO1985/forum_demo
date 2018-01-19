@@ -24,7 +24,7 @@ import java.util.List;
  * 1. Created Jan 11, 2018
  */
 @RunWith (SpringJUnit4ClassRunner.class)
-@Sql ("/database/forum_demo.sql")
+@Sql ("/database/question.sql")
 @SpringBootTest (classes = ForumDemoApplication.class)
 public class QuestionDaoTest {
 
@@ -64,10 +64,10 @@ public class QuestionDaoTest {
         questionsShouldAdded();
 
         Question questionTest = new Question();
-        questionTest = questionDaoTest.getQuestionViaId(3);
+        questionTest = questionDaoTest.getQuestionViaId(22);
         Assert.assertEquals("Test 3", questionTest.getTitle());
 
-        questionTest = questionDaoTest.getQuestionViaId(15);
+        questionTest = questionDaoTest.getQuestionViaId(35);
         Assert.assertNull(questionTest);
     }
 

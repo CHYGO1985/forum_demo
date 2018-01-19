@@ -14,9 +14,9 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface LoginTicketDao {
 
-    final String LOGTIC_TABLE  = "login_ticket";
-    final String INSERT_FIELDS = " user_id, expired, status, ticket ";
-    final String SELECT_FIELDS = " id, " + INSERT_FIELDS;
+    String LOGTIC_TABLE  = "login_ticket";
+    String INSERT_FIELDS = " user_id, expired, status, ticket ";
+    String SELECT_FIELDS = " id, " + INSERT_FIELDS;
 
     /**
      *

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * 1. Jan 14, 2018
  */
 @Component
-public class UserHoler {
+public class UserHolder {
 
     private static ThreadLocal<User> userThreadLocal = new ThreadLocal<>();
 

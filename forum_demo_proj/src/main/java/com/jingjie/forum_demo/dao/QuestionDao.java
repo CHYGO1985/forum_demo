@@ -19,14 +19,14 @@ import java.util.List;
 @Mapper
 public interface QuestionDao {
 
-    final String QUSTION_TABLE = "question";
-    final String INSERT_FIELDS = "title, content, user_id, created_date, comment_count";
-    final String SELECT_FIELDS = "id, " + INSERT_FIELDS;
+    String QUSTION_TABLE = "question";
+    String INSERT_FIELDS = "title, content, user_id, created_date, comment_count";
+    String SELECT_FIELDS = "id, " + INSERT_FIELDS;
 
     // insert question into question table
     @Insert ({"insert into ", QUSTION_TABLE, " (", INSERT_FIELDS,
             ") values (#{title}, #{content}, #{userId}, #{createDate}, #{commentCount})"})
-    void addQuestion(Question question);
+    int addQuestion(Question question);
 
     // get a question via its id
     @Select ({"select ", SELECT_FIELDS, " from ", QUSTION_TABLE, " where id = #{id}"})

@@ -1,6 +1,6 @@
 package com.jingjie.forum_demo.interceptor;
 
-import com.jingjie.forum_demo.model.UserHoler;
+import com.jingjie.forum_demo.model.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginCheckingInterceptor implements HandlerInterceptor{
 
     @Autowired
-    UserHoler userHoler;
+    UserHolder userHolder;
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -29,7 +29,7 @@ public class LoginCheckingInterceptor implements HandlerInterceptor{
         // check whether the userHolder have any user, if not,
         // redirect to login page with the current visited URI
         // added to path
-        if (userHoler.getUser() == null) {
+        if (userHolder.getUser() == null) {
             httpServletResponse.sendRedirect("/regislogin?next=" + httpServletRequest.getRequestURI());
             return false;
         }
