@@ -32,4 +32,7 @@ public class ForumDemoAppUtil {
     /* Database related code */
     public static final int QUESTION_ADD_FAIL = 0;
 
+    /* Sensitive word replacement*/
+    public static final String SENS_WORD_REPLACE = "**";
+
 }

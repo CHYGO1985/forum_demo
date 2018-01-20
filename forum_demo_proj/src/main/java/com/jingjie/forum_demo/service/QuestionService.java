@@ -22,6 +22,9 @@ public class QuestionService {
     @Autowired
     QuestionDao questionDao;
 
+    @Autowired
+    SensitiveWordService sensitiveWordService;
+
     public Question getQuestiionViaId(int id){
 
         return questionDao.getQuestionViaId(id);
@@ -37,6 +40,10 @@ public class QuestionService {
         // escape HTML code in a question
         question.setTitle(HtmlUtils.htmlEscape(question.getTitle()));
         question.setContent(HtmlUtils.htmlEscape(question.getContent()));
+
+        // filter sensitive words
+        question.setTitle(sensitiveWordService.filterWords(question.getTitle()));
+        question.setContent(sensitiveWordService.filterWords(question.getContent()));
 
         return questionDao.addQuestion(question) > ForumDemoAppUtil.QUESTION_ADD_FAIL ?
                 question.getId() : ForumDemoAppUtil.QUESTION_ADD_FAIL;
