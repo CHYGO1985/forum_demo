@@ -4,17 +4,17 @@ import com.jingjie.forum_demo.model.Question;
 import com.jingjie.forum_demo.model.User;
 import com.jingjie.forum_demo.model.UserHolder;
 import com.jingjie.forum_demo.service.QuestionService;
+import com.jingjie.forum_demo.service.UserService;
 import com.jingjie.forum_demo.util.ForumDemoAppUtil;
 import com.jingjie.forum_demo.util.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.jws.WebParam;
 import java.util.Date;
 
 /**
@@ -35,6 +35,9 @@ public class QuestionController {
 
     @Autowired
     UserHolder userHolder;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping (value = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -74,7 +77,19 @@ public class QuestionController {
 
         return JSONUtil.getJSONStringMsg(
                 ForumDemoAppUtil.QUESTOON_SUBMIT_FAIL, "Submit Failed!");
-
     }
 
+    @RequestMapping (path = {"/question/{qid}"}, method = {RequestMethod.GET})
+    public String showQuestionViaId (Model model,
+                                     @PathVariable("qid") int qid) {
+
+        Question question = questionService.getQuestiionViaId(qid);
+
+        // add question and poster's information to the model
+        model.addAttribute("question", question);
+        model.addAttribute("user", userService.getUserViaId(
+                question.getUserId()));
+
+        return "detail";
+    }
 }
