@@ -70,8 +70,8 @@
                     <meta itemprop="answer-url-token" content="66862039">
                     <a class="zg-anchor-hidden" name="answer-22162611"></a>
 
-                    <div class="zm-votebar goog-scrollfloater js-vote" data-id="$!{comment.comment.id}">
-                        <#if comment.liked gt 0>
+                    <div class="zm-votebar goog-scrollfloater js-vote" data-id="${(comment.comment.id) !}">
+                        <#if comment.liked?has_content && comment.liked gt 0>
                         <button class="up js-like pressed" title="赞同">
                         <#else>
                         <button class="up js-like" title="赞同">
@@ -81,11 +81,11 @@
                             <span class="label sr-only">赞同</span>
                         </button>
 
-                        #if($comment.liked < 0)
+                        <#if comment.liked?has_content && comment.liked lt 0>
                         <button class="down js-dislike pressed" title="反对，不会显示你的姓名">
-                        #else
+                        <#else>
                         <button class="down js-dislike" title="反对，不会显示你的姓名">
-                        #end
+                        </#if>
                             <i class="icon vote-arrow"></i>
                             <span class="label sr-only">反对，不会显示你的姓名</span>
                         </button>
@@ -98,20 +98,20 @@
                         </div>
                         <div class="zm-item-vote-info">
                                 <span class="voters text">
-                                    <a href="" class="more text"><span class="js-voteCount">$!{comment.likeCount}</span>&nbsp;人赞同</a>
+                                    <a href="" class="more text"><span class="js-voteCount">${(comment.likeCount) ! "0"}</span>&nbsp;人赞同</a>
                                 </span>
                         </div>
                     </div>
                     <div class="zm-item-rich-text expandable js-collapse-body" data-resourceid="6727688" data-action="/answer/content" data-author-name="营销岛" data-entry-url="/question/36301524/answer/66862039">
 
                         <div class="zm-editable-content clearfix">
-                            $comment.comment.content
+                            ${(comment.comment.content) !}
                         </div>
                     </div>
                     <a class="zg-anchor-hidden ac" name="22162611-comment"></a>
                     <div class="zm-item-meta answer-actions clearfix js-contentActions">
                         <div class="zm-meta-panel">
-                            <a itemprop="url" class="answer-data-link meta-item" target="_blank" href="">发布于 $data.format('yyyy-MM-dd HH:mm:ss', $comment.comment.createdDate)</a>
+                            <a itemprop="url" class="answer-data-link meta-item" target="_blank" href="">发布于 ${(comment.comment.createDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}
                             <a href="" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
                                 <i class="z-icon-comment"></i>4 条评论</a>
 
