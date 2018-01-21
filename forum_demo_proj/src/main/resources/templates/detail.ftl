@@ -31,27 +31,30 @@
             </div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
-                    #if ($followed)
+                    <#if $followed?has_content>
                     <button class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
                             data-status="1">
                         取消关注
                     </button>
-                    #else
+                    <#else>
                     <button class="follow-button zg-follow zg-btn-green js-follow-question" data-id="${question.id}">
                         关注问题
                     </button>
-                    #end
+                    </#if>
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
-                            <a href="javascript:void(0);"><strong class="js-user-count">${followUsers.size()}</strong></a>人关注该问题
+                            <a href="javascript:void(0);"><strong class="js-user-count">${(followUsers.size()) ! "0"}</strong></a>人关注该问题
                         </div>
                         <div class="list zu-small-avatar-list zg-clear js-user-list">
-                            #foreach($vo in $followUsers)
+                            <!-- following if is to use when follower functions is not added-->
+                            <#if followUsers?has_content>
+                            <#list followUsers as vo>
                             <a class="zm-item-link-avatar js-user-${vo.id}" href="/user/${vo.id}"
                                data-original_title="${vo.name}">
-                                <img src="${vo.headUrl}"
+                                <img src="${(vo.headUrl) !}"
                                      class="zm-item-img-avatar"></a>
-                            #end
+                            </#list>
+                            </#if>
                         </div>
                     </div>
                 </div>
@@ -60,7 +63,7 @@
                  data-widget="navigable" data-navigable-options="{&quot;items&quot;: &quot;&gt;.zm-item-answer&quot;}"
                  data-init="{&quot;params&quot;: {&quot;url_token&quot;: 36301524, &quot;pagesize&quot;: 10, &quot;offset&quot;: 0}, &quot;nodename&quot;: &quot;QuestionAnswerListV2&quot;}">
 
-                #foreach($comment in $comments)
+                <#list comments as comment>
                 <div class="zm-item-answer  zm-item-expanded js-comment">
                     <link itemprop="url" href="">
                     <meta itemprop="answer-id" content="22162611">
@@ -68,13 +71,13 @@
                     <a class="zg-anchor-hidden" name="answer-22162611"></a>
 
                     <div class="zm-votebar goog-scrollfloater js-vote" data-id="$!{comment.comment.id}">
-                        #if($comment.liked > 0)
+                        <#if comment.liked gt 0>
                         <button class="up js-like pressed" title="赞同">
-                        #else
+                        <#else>
                         <button class="up js-like" title="赞同">
-                        #end
+                        </#if>
                             <i class="icon vote-arrow"></i>
-                            <span class="count js-voteCount">$!{comment.likeCount}</span>
+                            <span class="count js-voteCount">${(comment.likeCount) ! "0"}</span>
                             <span class="label sr-only">赞同</span>
                         </button>
 
@@ -117,12 +120,12 @@
                         </div>
                     </div>
                 </div>
-                #end
+                </#list>
             </div>
             <a name="draft"></a>
 
             <form action="/addComment" method="post">
-                <input type="hidden" name="questionId" value="$!{question.id}"/>
+                <input type="hidden" name="questionId" value="${(question.id) !}"/>
             <div id="zh-question-answer-form-wrap" class="zh-question-answer-form-wrap">
                 <div class="zm-editable-editor-wrap" style="">
                     <div class="zm-editable-editor-outer">

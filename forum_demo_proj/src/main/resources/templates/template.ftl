@@ -39,5 +39,8 @@
 
     <h2>${addition(5, 5)}</h2>
 
+    <!-- date format -->
+    <!-- ${(viewObj.question.createDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"} -->
+
 </body>
 </html>

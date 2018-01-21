@@ -1,10 +1,7 @@
 package com.jingjie.forum_demo.dao;
 
 import com.jingjie.forum_demo.model.Question;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -47,4 +44,7 @@ public interface QuestionDao {
     List<Question> getLatestQuestions(@Param("userId") int userId,
                                       @Param("offset") int offSet,
                                       @Param("limit") int limit);
+
+    @Update ({"update ", QUSTION_TABLE, " set comment_count = #{commentCount} where id=#{id}"})
+    int updateCommentCount(@Param("id") int id, @Param("commentCount") int commentCount);
 }

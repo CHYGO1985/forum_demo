@@ -48,4 +48,8 @@ public class QuestionService {
         return questionDao.addQuestion(question) > ForumDemoAppUtil.QUESTION_ADD_FAIL ?
                 question.getId() : ForumDemoAppUtil.QUESTION_ADD_FAIL;
     }
+
+    public int updateCommentCount(int id, int count) {
+        return questionDao.updateCommentCount(id, count);
+    }
 }

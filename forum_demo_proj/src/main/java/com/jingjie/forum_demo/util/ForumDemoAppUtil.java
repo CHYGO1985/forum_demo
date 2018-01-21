@@ -35,4 +35,13 @@ public class ForumDemoAppUtil {
     /* Sensitive word replacement*/
     public static final String SENS_WORD_REPLACE = "**";
 
+    /* Entity Types */
+    public static final int ENTITY_QUESTION = 1;
+    public static final int ENTITY_COMMENT = 2;
+    public static final int ENTITY_USER = 3;
+
+    /* Comment status code */
+    public static final int COMMENT_VALID = 0;
+    public static final int COMMENT_DELETED = 1;
+
 }

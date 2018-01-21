@@ -18,7 +18,7 @@ public interface CommentDao {
 
     String COMMENT_TABLE = "comment";
     String INSERT_FIELDS = "user_id, created_date, entity_id, entity_type, content, status";
-    String SELECT_FIELDS = "id" + INSERT_FIELDS;
+    String SELECT_FIELDS = "id, " + INSERT_FIELDS;
 
     @Select ({"select " + SELECT_FIELDS + " from " + COMMENT_TABLE + " where id = #{id}"})
     int getCommentViaId(int id);
@@ -26,8 +26,8 @@ public interface CommentDao {
     @Select ({"select count(id) from " + COMMENT_TABLE + " where user_id = #{userId}"})
     int getUserCommentCount(int userId);
 
-    @Insert ({"insert into " + COMMENT_TABLE + " (user_id, created_date, entity_id, entity_type, content, status) " +
-            "value (#{userId}, #{createDate}, #{entityId}), #{entityType}, #{content}, #{status} "})
+    @Insert ({"insert into " + COMMENT_TABLE + " (" + INSERT_FIELDS + ") " +
+            "value (#{userId}, #{createDate}, #{entityId}), #{entityType}, #{content}, #{status}"})
     int addComment(Comment comment);
 
     @Select ({"select " + SELECT_FIELDS + " from " + COMMENT_TABLE + " where entity_id = #{entityId} and entity_type = #{entityType} " +
@@ -37,7 +37,7 @@ public interface CommentDao {
 
     @Update ({"update " + COMMENT_TABLE + " set status = #{status} where id = #{id}"})
     int updateCommentStatus(@Param("id") int id,
-                            @Param("status") String status);
+                            @Param("status") int status);
 
     @Select ({"select " + SELECT_FIELDS + " from " + COMMENT_TABLE + " where entity_id = #{entityId} and entity_type = #{entityType}"})
     int getCommentCountViaEntity(@Param("entityId") int entityId,

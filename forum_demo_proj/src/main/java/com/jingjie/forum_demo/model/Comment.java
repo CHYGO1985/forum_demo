@@ -15,7 +15,7 @@ public class Comment {
 
     private int id;
     private String content;
-    private int useId;
+    private int userId;
     private Date createDate;
     private int entityId;
     private int entityType;
@@ -42,12 +42,12 @@ public class Comment {
         this.content = content;
     }
 
-    public int getUseId() {
-        return useId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUseId(int useId) {
-        this.useId = useId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public Date getCreateDate() {

@@ -1,8 +1,7 @@
 package com.jingjie.forum_demo.controller;
 
-import com.jingjie.forum_demo.model.Question;
-import com.jingjie.forum_demo.model.User;
-import com.jingjie.forum_demo.model.UserHolder;
+import com.jingjie.forum_demo.model.*;
+import com.jingjie.forum_demo.service.CommentService;
 import com.jingjie.forum_demo.service.QuestionService;
 import com.jingjie.forum_demo.service.UserService;
 import com.jingjie.forum_demo.util.ForumDemoAppUtil;
@@ -14,8 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.jws.WebParam;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -38,6 +38,9 @@ public class QuestionController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CommentService commentService;
 
     @RequestMapping (value = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -89,6 +92,19 @@ public class QuestionController {
         model.addAttribute("question", question);
         model.addAttribute("user", userService.getUserViaId(
                 question.getUserId()));
+
+        // get the question's comments infor
+        List<Comment> comList = commentService.getCommentViaEntity(qid,
+                ForumDemoAppUtil.ENTITY_QUESTION);
+        List<ViewObject> comments = new LinkedList<>();
+        for (Comment comment : comList) {
+
+            ViewObject obj = new ViewObject();
+            obj.set("comment", comment);
+            obj.set("user", userService.getUserViaId(comment.getUserId()));
+            comments.add(obj);
+        }
+        model.addAttribute("comments", comments);
 
         return "detail";
     }
