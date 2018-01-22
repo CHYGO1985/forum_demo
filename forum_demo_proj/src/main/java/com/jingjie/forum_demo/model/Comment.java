@@ -21,9 +21,9 @@ public class Comment {
     private int entityType;
     private int status;
 
-    public Comment () {
+    public Comment() {
 
-        createDate = new Date();
+        //createDate = new Date();
     }
 
     public int getId() {
@@ -50,14 +50,6 @@ public class Comment {
         this.userId = userId;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
     public int getEntityId() {
         return entityId;
     }
@@ -80,5 +72,13 @@ public class Comment {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }
