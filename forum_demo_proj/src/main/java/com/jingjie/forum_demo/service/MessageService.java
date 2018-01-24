@@ -21,13 +21,18 @@ public class MessageService {
     @Autowired
     MessageDao messageDao;
 
+    @Autowired
+    SensitiveWordService sensitiveWordService;
+
     public int addMessage(Message message) {
+
+        message.setContent( sensitiveWordService.filterWords(message.getContent()) );
 
         return messageDao.addMessage(message) > 0? message.getId() : 0;
     }
 
 
-    public int getConvosViaId (int convoId, int offset, int limit) {
+    public List<Message> getConvosViaId (String convoId, int offset, int limit) {
 
         return messageDao.getConvosViaId(convoId, offset, limit);
     }
@@ -39,7 +44,7 @@ public class MessageService {
     }
 
     // get the number of unread message send to a user with certain convo id
-    public int getUnreadMsgCount (int userId, int convoId) {
+    public int getUnreadMsgCount (int userId, String convoId) {
 
         return messageDao.getUnreadMsgCount(userId, convoId);
     }

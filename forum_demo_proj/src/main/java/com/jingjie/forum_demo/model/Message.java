@@ -73,13 +73,11 @@ public class Message {
 
         // conversation id is in int_int format, small number comes first
         if (fromId < toId) {
-            String.format("%d_%d", fromId, toId);
+            return String.format("%d_%d", fromId, toId);
         }
         else {
-            String.format("%d_%d", toId, fromId);
+            return String.format("%d_%d", toId, fromId);
         }
-
-        return convoId;
     }
 
     public void setConvoId(String convoId) {

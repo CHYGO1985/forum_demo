@@ -69,7 +69,7 @@ public class QuestionController {
             if (questionService.addQuestion(question) >
                     ForumDemoAppUtil.QUESTION_ADD_FAIL) {
                 // return JSONString code 0, means add successfully
-                return JSONUtil.getJSONStringCode(ForumDemoAppUtil.
+                return JSONUtil.getJSONStringViaCode(ForumDemoAppUtil.
                         QUESTION_SUBMIT_SUCCESS);
             }
         }

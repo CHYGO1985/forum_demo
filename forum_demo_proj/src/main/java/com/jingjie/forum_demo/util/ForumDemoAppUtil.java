@@ -29,6 +29,12 @@ public class ForumDemoAppUtil {
     public static final int QUESTION_SUBMIT_SUCCESS = 0;
     public static final int QUESTOON_SUBMIT_FAIL = 1;
 
+    /* Message JSON code*/
+    public static final int MSG_ADD_SUCCESS = 0;
+    public static final int MSG_ADD_FAIL = 1;
+    public static final int MSG_READ = 1;
+    public static final int MSG_UN_READ = 0;
+
     /* Database related code */
     public static final int QUESTION_ADD_FAIL = 0;
 
@@ -43,5 +49,8 @@ public class ForumDemoAppUtil {
     /* Comment status code */
     public static final int COMMENT_VALID = 0;
     public static final int COMMENT_DELETED = 1;
+
+    /* Un login user */
+    public static final int UNLOGIN_USER = 999;
 
 }

@@ -16,7 +16,7 @@ import java.util.Map;
 public class JSONUtil {
 
     // get code string
-    public static String getJSONStringCode (int code) {
+    public static String getJSONStringViaCode(int code) {
 
         JSONObject json = new JSONObject();
         json.put("code", code);

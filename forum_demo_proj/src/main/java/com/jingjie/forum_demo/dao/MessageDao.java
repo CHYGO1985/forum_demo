@@ -26,27 +26,27 @@ public interface MessageDao {
 
     // add message
     @Insert ({"insert into " + MESSAGE_TABLE + " (" + INSERT_FIELDS + ") values " +
-            "(#{fromId}, #{toId}, #{content}, #{createDate}, #{convoId})"})
+            "(#{fromId}, #{toId}, #{content}, #{createDate}, #{hasRead}, #{convoId})"})
     int addMessage(Message message);
 
     // get convos via convo_id with limit, offer and in desc order by createDate
     @Select ({"select * from message where convo_id = #{convoId} order by created_date desc " +
             "limit #{limit} offset #{offset}"})
-    int getConvosViaId (@Param("convoId") int convoId,
+    List<Message> getConvosViaId (@Param("convoId") String convoId,
                         @Param("offset") int offset,
                         @Param("limit") int limit);
 
     // get convos and the num of convos send to and from a user with limit, offset and in desc by createDate
     @Select({"select ", INSERT_FIELDS, " , count(id) as id from ( select * from ", MESSAGE_TABLE,
-            " where from_id=#{userId} or to_id=#{userId} order by created_date desc) tt group by conversation_id order by " +
+            " where from_id=#{userId} or to_id=#{userId} order by created_date desc) tt group by convo_id order by " +
                     "created_date desc limit #{limit} offset #{offset}"})
     List<Message> getConversationList(@Param("userId") int userId,
                                       @Param("offset") int offset,
                                       @Param("limit") int limit);
 
     // get the number of unread message send to a user with certain convo id
-    @Select ({"select count(id) from " + MESSAGE_TABLE + " where has_read = 0 and user_id = #{userId}" +
+    @Select ({"select count(id) from " + MESSAGE_TABLE + " where has_read = 0 and to_id = #{userId}" +
             " and convo_id = #{convoId}"})
     int getUnreadMsgCount (@Param("userId") int userId,
-                           @Param("convoId") int convoId);
+                           @Param("convoId") String convoId);
 }
