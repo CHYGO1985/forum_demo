@@ -15,7 +15,8 @@ import java.util.*;
 
 /**
  *
- * Controller of the forum.
+ * Not part of the application, just a code base to learn SpringBOOT
+ * and how it interact with freemarker template.
  *
  * 1. learn to set path
  * 2. learn to get attributes and parameters from URL path
