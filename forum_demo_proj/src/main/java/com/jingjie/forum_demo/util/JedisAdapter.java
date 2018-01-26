@@ -70,4 +70,26 @@ public class JedisAdapter implements InitializingBean {
 
         return 0;
     }
+
+    // scard method
+    public long getNumOfMembersViaKey (String key) {
+
+        Jedis jedis = null;
+        try {
+
+            jedis = pool.getResource();
+            return jedis.scard(key);
+        }
+        catch (Exception ex) {
+            logger.error("Fail to get the number of members of a key: " +
+                    ex.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
+        return 0;
+    }
 }
