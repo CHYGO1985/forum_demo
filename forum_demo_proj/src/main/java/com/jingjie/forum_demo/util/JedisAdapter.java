@@ -19,7 +19,7 @@ import redis.clients.jedis.JedisPool;
 @Service
 public class JedisAdapter implements InitializingBean {
 
-    private static Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private JedisPool pool;
 
 
@@ -67,5 +67,7 @@ public class JedisAdapter implements InitializingBean {
                 jedis.close();
             }
         }
+
+        return 0;
     }
 }
