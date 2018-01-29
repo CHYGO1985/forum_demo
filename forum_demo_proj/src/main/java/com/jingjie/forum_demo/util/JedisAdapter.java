@@ -6,8 +6,11 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.Transaction;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -31,7 +34,7 @@ public class JedisAdapter implements InitializingBean {
     }
 
     // srem method
-    public long removeMember (String key, String value) {
+    public long removeFromSet (String key, String value) {
 
         Jedis jedis = null;
 
@@ -201,5 +204,152 @@ public class JedisAdapter implements InitializingBean {
         return 0;
     }
 
+    // zrem method
+    public long removeFromSortedSet (String key, String value) {
 
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.zrem(key, value);
+        }
+        catch (Exception ex) {
+            logger.error("Fail to remove from sorted set: " +
+                    ex.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
+        return 0;
+    }
+
+    // multi method
+    public Transaction startOfTransac (Jedis jedis) {
+
+        try {
+            return jedis.multi();
+        }
+        catch (Exception ex) {
+            logger.error("Fail to start a transaction: " + ex.getMessage());
+        }
+        finally {
+
+        }
+
+        return null;
+    }
+
+    // exec method
+    public List<Object> execTransac (Transaction trans, Jedis jedis) {
+
+        try {
+            return trans.exec();
+        }
+        catch (Exception ex) {
+            logger.error("Fail to execute transactions: " + ex.getMessage());
+            trans.discard();
+        }
+        finally {
+            if (trans != null) {
+                try {
+                    trans.close();
+                }
+                catch (IOException ioe) {
+
+                }
+            }
+
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
+        return null;
+    }
+
+    // zrange method
+    public Set<String> getSortedSetElems (String key, int start, int end) {
+
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.zrange(key, start, end);
+        }
+        catch (Exception ex) {
+            logger.error("Fail to get elems from sorted set: " +
+                    ex.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
+        return null;
+    }
+
+    // zrevrange method
+    public Set<String> getSortedSetElemsRev (String key, int start, int end) {
+
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.zrevrange(key, start, end);
+        }
+        catch (Exception ex) {
+            logger.error("Fail to get elemes from sorted set in rev order: " +
+                    ex.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
+        return null;
+    }
+
+    // zcard method
+    public long getCardOfSortedSet (String key) {
+
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.zcard(key);
+        }
+        catch (Exception ex) {
+            logger.error("Fail to get the cardinality of sorted set:" +
+                    ex.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
+        return 0;
+    }
+
+    // zscore method
+    public Double getSoreInSortedSet (String key, String member) {
+
+        Jedis jedis = null;
+        try {
+            jedis = pool.getResource();
+            return jedis.zscore(key, member);
+        }
+        catch (Exception ex) {
+            logger.error("Fail to get a score from sorted set: " +
+                    ex.getMessage());
+        }
+        finally {
+            if (jedis != null) {
+                jedis.close();
+            }
+        }
+
+        return null;
+    }
 }
