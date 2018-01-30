@@ -2,6 +2,7 @@ package com.jingjie.forum_demo.controller;
 
 import com.jingjie.forum_demo.model.*;
 import com.jingjie.forum_demo.service.CommentService;
+import com.jingjie.forum_demo.service.LikeService;
 import com.jingjie.forum_demo.service.QuestionService;
 import com.jingjie.forum_demo.service.UserService;
 import com.jingjie.forum_demo.util.ForumDemoAppUtil;
@@ -41,6 +42,9 @@ public class QuestionController {
 
     @Autowired
     CommentService commentService;
+
+    @Autowired
+    LikeService likeService;
 
     @RequestMapping (value = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -101,6 +105,21 @@ public class QuestionController {
 
             ViewObject obj = new ViewObject();
             obj.set("comment", comment);
+            User user = userHolder.getUser();
+            if (user == null) {
+                obj.set("liked", 0);
+            }
+            else {
+                // get the like status related to the login user
+                obj.set("liked", likeService.getLikeStatus(user.getId(),
+                        ForumDemoAppUtil.ENTITY_COMMENT,
+                        comment.getId()));
+            }
+
+            obj.set("likeCount", likeService.getLikeCount(
+                    ForumDemoAppUtil.ENTITY_COMMENT,
+                    comment.getId()));
+
             obj.set("user", userService.getUserViaId(comment.getUserId()));
             comments.add(obj);
         }

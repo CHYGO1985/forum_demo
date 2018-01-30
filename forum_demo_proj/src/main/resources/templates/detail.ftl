@@ -71,7 +71,7 @@
                     <a class="zg-anchor-hidden" name="answer-22162611"></a>
 
                     <div class="zm-votebar goog-scrollfloater js-vote" data-id="${(comment.comment.id) !}">
-                        <#if comment.liked?has_content && comment.liked gt 0>
+                        <#if comment.liked gt 0>
                         <button class="up js-like pressed" title="赞同">
                         <#else>
                         <button class="up js-like" title="赞同">
@@ -81,7 +81,7 @@
                             <span class="label sr-only">赞同</span>
                         </button>
 
-                        <#if comment.liked?has_content && comment.liked lt 0>
+                        <#if comment.liked lt 0>
                         <button class="down js-dislike pressed" title="反对，不会显示你的姓名">
                         <#else>
                         <button class="down js-dislike" title="反对，不会显示你的姓名">

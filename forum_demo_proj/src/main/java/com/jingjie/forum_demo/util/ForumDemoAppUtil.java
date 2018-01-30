@@ -58,5 +58,8 @@ public class ForumDemoAppUtil {
     public static final int DISLIKED_STATUS = -1;
     public static final int NEUTRAl_STATUS = 0;
 
+    /* like/dislike related JSON code*/
+    public static final int UPDATE_LIKE_DISLIKE_SUC = 0;
+
 
 }
