@@ -56,7 +56,7 @@ public class JedisAdapter implements InitializingBean {
     }
 
     // sadd method
-    public long addMember (String key, String value) {
+    public long addMemberToSet (String key, String value) {
 
         Jedis jedis = null;
         try {

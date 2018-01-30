@@ -53,4 +53,10 @@ public class ForumDemoAppUtil {
     /* Un login user */
     public static final int UNLOGIN_USER = 999;
 
+    /* Like/Dislike status code */
+    public static final int LIKED_STATUS = 1;
+    public static final int DISLIKED_STATUS = -1;
+    public static final int NEUTRAl_STATUS = 0;
+
+
 }
