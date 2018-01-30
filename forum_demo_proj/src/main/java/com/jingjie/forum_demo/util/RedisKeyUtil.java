@@ -1,4 +1,4 @@
-package com.jingjie.forum_demo.controller;
+package com.jingjie.forum_demo.util;
 
 /**
  *
