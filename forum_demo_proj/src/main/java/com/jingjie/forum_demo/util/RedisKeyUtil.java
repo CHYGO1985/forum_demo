@@ -14,6 +14,7 @@ public class RedisKeyUtil {
     private static String KEY_DELIMITER = "#";
     private static String KEY_LIKE = "LIKE";
     private static String KEY_DISLIKE = "DISLIKE";
+    private static String KEY_EVENT_QUEUE = "EVENT_QUEUE";
 
     public static String getLikeKey (int enittyType, int entityId) {
 
@@ -25,5 +26,10 @@ public class RedisKeyUtil {
 
         return KEY_DISLIKE + KEY_DELIMITER + String.valueOf(entityType) +
                 KEY_DELIMITER + String.valueOf(entityId);
+    }
+
+    public static String getKeyEventQueue () {
+
+        return KEY_EVENT_QUEUE;
     }
 }
