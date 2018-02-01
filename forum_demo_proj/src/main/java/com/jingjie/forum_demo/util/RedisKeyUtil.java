@@ -36,16 +36,38 @@ public class RedisKeyUtil {
     }
 
     // follower key for a entity (follow certain entityType and entityId)
+
+    /**
+     *
+     * Get a follower key for a entity (follow certain entityType and entityId)
+     * NB: the follower key will be used in zset:
+     * <followerKey (key), time (score), userId (value)>
+     *
+     *
+     * @param entityType
+     * @param entityId
+     * @return
+     */
     public static String getKeyFollower (int entityType, int entityId) {
 
         return KEY_FOLLOWER + KEY_DELIMITER + String.valueOf(entityType) +
                 KEY_DELIMITER + String.valueOf(entityId);
     }
 
-    // followee key for a user (a user followes an entity)
-    public static String getKeyFollowee (int userId, int entityId) {
+    /**
+     *
+     * Get a followee key for a user (a user followes an entity)
+     * NB: the followee key will be used in zset:
+     * <followeeKey (key), time (score), entityId (value)>
+     *
+     *
+     * @param userId
+     * @param entityType
+     * @return
+     */
+    public static String getKeyFollowee (int userId, int entityType) {
 
         return KEY_FOLLOWEE + KEY_DELIMITER + String.valueOf(userId) +
-                KEY_DELIMITER + String.valueOf(entityId);
+                KEY_DELIMITER + String.valueOf(entityType);
     }
 }
