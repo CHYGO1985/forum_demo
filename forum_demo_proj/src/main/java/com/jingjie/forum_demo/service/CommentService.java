@@ -46,7 +46,7 @@ public class CommentService {
         return commentDao.getCommentViaEntity(entityId, entityType);
     }
 
-    public int getCommentViaId (int id) {
+    public Comment getCommentViaId (int id) {
 
         return commentDao.getCommentViaId(id);
     }

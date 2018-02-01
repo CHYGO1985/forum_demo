@@ -21,7 +21,7 @@ public interface CommentDao {
     String SELECT_FIELDS = "id, " + INSERT_FIELDS;
 
     @Select ({"select " + SELECT_FIELDS + " from " + COMMENT_TABLE + " where id = #{id}"})
-    int getCommentViaId(int id);
+    Comment getCommentViaId(int id);
 
     @Select ({"select count(id) from " + COMMENT_TABLE + " where user_id = #{userId}"})
     int getUserCommentCount(int userId);

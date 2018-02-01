@@ -84,4 +84,8 @@ public class EventModel {
         this.extension.put(key, value);
         return this;
     }
+
+    public String getValueInExt (String key) {
+        return extension.get(key);
+    }
 }

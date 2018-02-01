@@ -11,6 +11,7 @@ package com.jingjie.forum_demo.util;
 public class ForumDemoAppUtil {
 
     public static final int ANONYMOUS_USERID = 1;
+    public static final int SYS_USER = 2;
 
     /* templates related constants */
     public static final String INDEX_TEMPLATE = "index";

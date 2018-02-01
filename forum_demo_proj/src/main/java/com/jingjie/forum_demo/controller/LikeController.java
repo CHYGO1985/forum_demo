@@ -1,5 +1,8 @@
 package com.jingjie.forum_demo.controller;
 
+import com.jingjie.forum_demo.event.EventModel;
+import com.jingjie.forum_demo.event.EventProducer;
+import com.jingjie.forum_demo.event.EventType;
 import com.jingjie.forum_demo.model.Comment;
 import com.jingjie.forum_demo.model.User;
 import com.jingjie.forum_demo.model.UserHolder;
@@ -32,6 +35,12 @@ public class LikeController {
     @Autowired
     LikeService likeService;
 
+    @Autowired
+    CommentService commentService;
+
+    @Autowired
+    EventProducer eventProducer;
+
 
     @RequestMapping (path = "/like", method = {RequestMethod.POST})
     @ResponseBody
@@ -42,6 +51,16 @@ public class LikeController {
             return JSONUtil.getJSONStringViaCode(ForumDemoAppUtil.
                     UNLOGIN_USER);
         }
+
+        // get the liked comment
+        Comment comment = commentService.getCommentViaId(commentId);
+        // trigger a like event
+        eventProducer.triggerEvent(new EventModel(EventType.LIkE).
+                setActorId(user.getId()).setEntityOwnerId(comment.getUserId()).
+                setEntityType(ForumDemoAppUtil.ENTITY_COMMENT).
+                setEntityId(commentId).setExtension("questionId",
+                String.valueOf(comment.getEntityId())));
+
 
         long likeCount = likeService.like(user.getId(),
                 ForumDemoAppUtil.ENTITY_COMMENT,

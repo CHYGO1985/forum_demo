@@ -33,6 +33,11 @@ public class JedisAdapter implements InitializingBean {
         pool = new JedisPool("redis://localhost:6379/10");
     }
 
+    public Jedis getJedis () {
+
+        return pool.getResource();
+    }
+
     // srem method
     public long removeFromSet (String key, String value) {
 
