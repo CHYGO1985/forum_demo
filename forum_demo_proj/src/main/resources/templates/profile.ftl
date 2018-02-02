@@ -30,9 +30,9 @@
 
                                     <#-- <div class="zg-big-gray">计蒜客教研首席打杂</div> -->
                                     <div class="details zg-gray">
-                                        <a target="_blank" href="/user/${userProfile.user.id}/followers" class="zg-link-gray-normal">${(userProfile.followerCount) ! "0"}粉丝</a>
+                                        <a target="_blank" href="/user/${userProfile.user.id}/followers" class="zg-link-gray-normal">${(userProfile.followers) ! "0"}粉丝</a>
                                         /
-                                        <a target="_blank" href="/user/${userProfile.user.id}/followees" class="zg-link-gray-normal">${(userProfile.followeeCount) ! "0"}关注</a>
+                                        <a target="_blank" href="/user/${userProfile.user.id}/followees" class="zg-link-gray-normal">${(userProfile.followees) ! "0"}关注</a>
                                         /
                                         <a target="_blank" href="#" class="zg-link-gray-normal">${(userProfile.commentCount) ! "0"} 回答</a>
                                         /

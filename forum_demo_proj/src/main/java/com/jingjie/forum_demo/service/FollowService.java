@@ -38,7 +38,7 @@ public class FollowService {
     public boolean follow (int userId, int entityType, int entityId) {
 
         String followerKey = RedisKeyUtil.getKeyFollower(entityType, entityId);
-        String followeeKey = RedisKeyUtil.getKeyFollowee(userId, entityId);
+        String followeeKey = RedisKeyUtil.getKeyFollowee(userId, entityType);
 
         Date date = new Date();
         // user transaction to finish a follow action
@@ -66,7 +66,7 @@ public class FollowService {
     public boolean unfollow (int userId, int entityType, int entityId) {
 
         String followerKey = RedisKeyUtil.getKeyFollower(entityType, entityId);
-        String followeeKey = RedisKeyUtil.getKeyFollowee(userId, entityId);
+        String followeeKey = RedisKeyUtil.getKeyFollowee(userId, entityType);
 
         Date date = new Date();
         // user transaction to finish a follow action
