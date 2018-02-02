@@ -143,8 +143,8 @@ public class FollowController {
                     followerIds));
         }
 
-        model.addAttribute("followerCount", followService.getFolloweeCount(userId,
-                ForumDemoAppUtil.ENTITY_USER));
+        model.addAttribute("followerCount", followService.getFolloweeCount(
+                ForumDemoAppUtil.ENTITY_USER, userId));
         model.addAttribute("curUser", userService.getUserViaId(userId));
 
         return "followers";
@@ -211,8 +211,8 @@ public class FollowController {
             obj.set("user", user);
             // the number of comments that the user has posted
             obj.set("commentCount", commentService.getCommentViaId(id));
-            obj.set("followerCount", followService.getFollowerCount(id,
-                    ForumDemoAppUtil.ENTITY_USER));
+            obj.set("followerCount", followService.getFollowerCount(
+                    ForumDemoAppUtil.ENTITY_USER, id));
             obj.set("followeeCount", followService.getFolloweeCount(id,
                     ForumDemoAppUtil.ENTITY_USER));
             if (curUserId != UNLOGIN_USER_ID) {

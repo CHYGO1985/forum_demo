@@ -1,7 +1,11 @@
 package com.jingjie.forum_demo.controller;
 
 import com.jingjie.forum_demo.model.Question;
+import com.jingjie.forum_demo.model.User;
+import com.jingjie.forum_demo.model.UserHolder;
 import com.jingjie.forum_demo.model.ViewObject;
+import com.jingjie.forum_demo.service.CommentService;
+import com.jingjie.forum_demo.service.FollowService;
 import com.jingjie.forum_demo.service.QuestionService;
 import com.jingjie.forum_demo.service.UserService;
 import org.slf4j.Logger;
@@ -32,11 +36,22 @@ public class HomeController {
     // Define logger object for the class
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private static final boolean IS_NOT_FOLLOW = false;
+
     @Autowired
     QuestionService questionService;
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    FollowService followService;
+
+    @Autowired
+    CommentService commentService;
+
+    @Autowired
+    UserHolder userHolder;
 
     /**
      *
@@ -87,7 +102,13 @@ public class HomeController {
 
     /**
      *
-     * Get the lastest 10 questions posted by a given user.
+     * Get the lastest 10 questions posted by a given user and user profile.
+     * User profile includes:
+     * 1) user instance
+     * 2) the number of comments the user posted
+     * 3) the number of followers of the user
+     * 4) the number of followees that the user follows
+     * 5) if it is a login user, check whether it follows the given user
      *
      * @param model
      * @param userId
@@ -97,7 +118,29 @@ public class HomeController {
     public String home(Model model, @PathVariable("userId") int userId) {
 
         model.addAttribute("viewObjList", getLastestQuestionsInfo(userId, 0, 10));
+        User user = userService.getUserViaId(userId);
+        ViewObject viewObj = new ViewObject();
 
-        return ForumDemoAppUtil.INDEX_TEMPLATE;
+        viewObj.set("user", user);
+        viewObj.set("commentCount", commentService.getUserCommentCount(userId));
+        viewObj.set("followers", followService.getFollowerCount(
+                ForumDemoAppUtil.ENTITY_USER, userId));
+        viewObj.set("followees", followService.getFolloweeCount(userId,
+                ForumDemoAppUtil.ENTITY_USER));
+        User loginUser = userHolder.getUser();
+        if (loginUser != null) {
+            viewObj.set("followed", followService.isFollower(
+                    loginUser.getId(),
+                    ForumDemoAppUtil.ENTITY_USER,
+                    userId
+            ));
+        }
+        else {
+            viewObj.set("followed", IS_NOT_FOLLOW);
+        }
+
+        model.addAttribute("userProfile", viewObj);
+
+        return ForumDemoAppUtil.USER_PROFILE_TEMPLATE;
     }
 }
