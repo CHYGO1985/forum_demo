@@ -210,7 +210,7 @@ public class FollowController {
             ViewObject obj = new ViewObject();
             obj.set("user", user);
             // the number of comments that the user has posted
-            obj.set("commentCount", commentService.getCommentViaId(id));
+            obj.set("commentCount", commentService.getUserCommentCount(id));
             obj.set("followerCount", followService.getFollowerCount(
                     ForumDemoAppUtil.ENTITY_USER, id));
             obj.set("followeeCount", followService.getFolloweeCount(id,

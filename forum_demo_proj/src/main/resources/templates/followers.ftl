@@ -12,38 +12,39 @@
                 <div class="zm-profile-section-list">
                     <div id="zh-profile-follows-list">
                         <div class="zh-general-list clearfix">
-                            #foreach($vo in $followers)
+                            <#list followers as obj>
                             <div class="zm-profile-card zm-profile-section-item zg-clear no-hovercard">
-                                #if($vo.followed)
+                                <#if obj.followed == true>
                                 <div class="zg-right">
                                     <button class="zg-btn zg-btn-unfollow zm-rich-follow-btn small nth-0
-                                    js-follow-user" data-status="1" data-id="$vo.user.id">取消关注</button>
+                                    js-follow-user" data-status="1" data-id="${(obj.user.id) !}">取消关注</button>
                                 </div>
-                                #else
+                                <#else>
                                 <div class="zg-right">
                                     <button class="zg-btn zg-btn-follow zm-rich-follow-btn small nth-0
                                     js-follow-user">关注</button>
                                 </div>
-                                #end
-                                <a title="Barty" class="zm-item-link-avatar" href="/user/${vo.user.id}">
-                                    <img src="${vo.user.headUrl}" class="zm-item-img-avatar">
+                                </#if>
+                                <a title="Barty" class="zm-item-link-avatar" href="/user/${(obj.user.id) !}">
+                                    <img src="${(obj.user.headUrl) !}" class="zm-item-img-avatar">
                                 </a>
                                 <div class="zm-list-content-medium">
-                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/user/${vo.user.id}" class="zg-link" title="Barty">${vo.user.name}</a></h2>
+                                    <h2 class="zm-list-content-title"><a data-tip="p$t$buaabarty" href="/user/${(obj.user.id) !}" class="zg-link" title="Barty">
+                                        ${(obj.user.name) ! "Default name"}</a></h2>
 
                                     <!-- <div class="zg-big-gray">计蒜客教研首席打杂</div> -->
                                     <div class="details zg-gray">
-                                        <a target="_blank" href="/user/${vo.user.id}/followers" class="zg-link-gray-normal">${vo.followerCount}粉丝</a>
+                                        <a target="_blank" href="/user/${(obj.user.id) !}/followers" class="zg-link-gray-normal">${(obj.followerCount) ! "0"}粉丝</a>
                                         /
-                                        <a target="_blank" href="/user/${vo.user.id}/followees" class="zg-link-gray-normal">${vo.followeeCount}关注</a>
+                                        <a target="_blank" href="/user/${(obj.user.id) !}/followees" class="zg-link-gray-normal">${obj.followeeCount}关注</a>
                                         /
-                                        <a target="_blank" href="#" class="zg-link-gray-normal">${vo.commentCount} 回答</a>
+                                        <a target="_blank" href="#" class="zg-link-gray-normal">${(obj.commentCount) ! "0"} 回答</a>
                                         /
                                         <a target="_blank" href="#" class="zg-link-gray-normal">548 赞同</a>
                                     </div>
                                 </div>
                             </div>
-                            #end
+                            </#list>
                         </div>
                         <a aria-role="button" class="zg-btn-white zu-button-more">更多</a>
                     </div>
@@ -51,6 +52,6 @@
             </div>
         </div>
     </div>
-#parse("js.html")
+<#include "js.html" parse = true>
 <script type="text/javascript" src="/scripts/main/site/follow.js"></script>
-#parse("footer.html")
+<#include "footer.html" parse = true>
