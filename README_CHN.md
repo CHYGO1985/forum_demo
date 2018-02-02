@@ -1,4 +1,4 @@
-# 论坛项目
+# 论坛
 此论坛为学习Java web开发而做的项目。项目所用到的技术组合有：SpringBoot, Freemarker, Mybatis, MySQL and Redis. 项目为学习之用，所以不定期添加各种功能。
 目前已实现的功能有：
 
