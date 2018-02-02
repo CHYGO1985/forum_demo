@@ -3,6 +3,7 @@ package com.jingjie.forum_demo.controller;
 import com.jingjie.forum_demo.event.EventModel;
 import com.jingjie.forum_demo.event.EventProducer;
 import com.jingjie.forum_demo.event.EventType;
+import com.jingjie.forum_demo.model.Question;
 import com.jingjie.forum_demo.model.User;
 import com.jingjie.forum_demo.model.UserHolder;
 import com.jingjie.forum_demo.model.ViewObject;
@@ -17,8 +18,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class FollowController {
@@ -44,6 +47,7 @@ public class FollowController {
     private static final boolean IS_NOT_FOLLOW = false;
     private static final int MIN_ITEMS_NUM = 10;
     private static final int UNLOGIN_USER_ID = 0;
+    private static final int QUESTION_NOT_EXIST = 1;
 
     /**
      *
@@ -117,6 +121,95 @@ public class FollowController {
                 ForumDemoAppUtil.UNFOLLOW_SUCCESS : ForumDemoAppUtil.UNFOLLOW_FAIL,
                 String.valueOf(followService.getFolloweeCount(userId,
                         ForumDemoAppUtil.ENTITY_USER)));
+    }
+
+    /**
+     *
+     * Follow a question.
+     *
+     * @param questionId
+     * @return
+     */
+    @RequestMapping (path = {"/followQuestion"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String followQuestion (@RequestParam("questionId") int questionId) {
+
+        User user = userHolder.getUser();
+
+        if (user == null) {
+            return JSONUtil.getJSONStringViaCode(ForumDemoAppUtil
+            .UNLOGIN_USER);
+        }
+
+        Question question = questionService.getQuestiionViaId(questionId);
+
+        if (question == null) {
+            return JSONUtil.getJSONStringMsg(
+                    QUESTION_NOT_EXIST,
+                    "The question does not exist."
+            );
+        }
+
+        boolean res = followService.follow(user.getId(),
+                ForumDemoAppUtil.ENTITY_QUESTION, questionId);
+
+        eventProducer.triggerEvent(new EventModel(EventType.FOLLOW)
+                .setEntityType(ForumDemoAppUtil.ENTITY_QUESTION)
+                .setEntityId(questionId)
+                .setActorId(user.getId())
+                .setEntityOwnerId(question.getUserId()));
+
+        Map<String, Object> infor = new HashMap<>();
+        infor.put("headUrl", user.getHeadUrl());
+        infor.put("name", user.getName());
+        infor.put("id", user.getId());
+        infor.put("count", followService.getFollowerCount(
+                ForumDemoAppUtil.ENTITY_QUESTION,
+                questionId
+        ));
+
+        return JSONUtil.getJSONStringMap(res == true ?
+             ForumDemoAppUtil.FOLLOW_SUCCESS : ForumDemoAppUtil.FOLLOW_FAIL, infor);
+    }
+
+    @RequestMapping (path = {"/unfollowQuestion"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public String unfollowQuestion (@RequestParam("questionId") int questionId) {
+
+        User user = userHolder.getUser();
+        if (user == null) {
+            return JSONUtil.getJSONStringViaCode(
+                    ForumDemoAppUtil.UNLOGIN_USER);
+        }
+
+        Question question = questionService.getQuestiionViaId(questionId);
+
+        if (question == null) {
+            return JSONUtil.getJSONStringMsg(
+                    QUESTION_NOT_EXIST,
+                    "The question does not exist."
+            );
+        }
+
+        boolean res = followService.unfollow(user.getId(),
+                ForumDemoAppUtil.ENTITY_QUESTION, questionId);
+
+        eventProducer.triggerEvent(new EventModel(EventType.UNFOLLOW)
+                .setActorId(user.getId())
+                .setEntityOwnerId(question.getUserId())
+                .setEntityType(ForumDemoAppUtil.ENTITY_QUESTION)
+                .setEntityId(questionId));
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", user.getId());
+        map.put("count", followService.getFollowerCount(
+                ForumDemoAppUtil.ENTITY_QUESTION,
+                questionId
+        ));
+
+        return JSONUtil.getJSONStringMap(res == true?
+            ForumDemoAppUtil.UNFOLLOW_SUCCESS : ForumDemoAppUtil.UNFOLLOW_FAIL,
+                map);
     }
 
     /**

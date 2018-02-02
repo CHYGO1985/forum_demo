@@ -22,7 +22,6 @@ public class Question {
     // NOTE: The createDate must be initialised, otherwise it will not receive date ]
     // from datebase when reading
     public Question() {
-        createDate = new Date();
     }
 
     public int getId() {
