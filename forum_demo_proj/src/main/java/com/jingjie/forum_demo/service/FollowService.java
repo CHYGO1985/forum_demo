@@ -1,4 +1,4 @@
-package com.jingjie.forum_demo.model;
+package com.jingjie.forum_demo.service;
 
 import com.jingjie.forum_demo.util.JedisAdapter;
 import com.jingjie.forum_demo.util.RedisKeyUtil;

@@ -5,6 +5,8 @@ import com.jingjie.forum_demo.dao.QuestionDao;
 import com.jingjie.forum_demo.dao.UserDao;
 import com.jingjie.forum_demo.model.Question;
 import com.jingjie.forum_demo.model.User;
+import com.jingjie.forum_demo.service.FollowService;
+import com.jingjie.forum_demo.util.ForumDemoAppUtil;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,37 +43,9 @@ public class UserDaoTest {
     @Autowired
     QuestionDao questionDaoTest;
 
-    // init user table method
-    @Test
-    public void initUserTable() {
+    @Autowired
+    FollowService followService;
 
-        Random random = new Random();
-
-        for (int i = 0; i < 11; i ++) {
-            User user = new User();
-            user.setHeadUrl(String.format("http://images.nowcoder.com/head/%dt.png", random.nextInt(1000)));
-            user.setName(String.format("user%d", i + 1));
-            user.setPassword("");
-            user.setSalt("");
-            userDaoTest.addUser(user);
-        }
-
-        for (int i = 0; i < 11; i ++) {
-
-            Question question = new Question();
-            question.setUserId(i + 1);
-            question.setTitle(String.format("Test %d", i + 1));
-            Date date = new Date();
-            date.setTime(date.getTime() + 1000 * 3600 * i * 5);
-            question.setCreateDate(date);
-            question.setContent(String.format("XXXXXX %d", i + 1));
-            question.setCommentCount(i);
-
-            questionDaoTest.addQuestion(question);
-        }
-    }
-
-    /*
     // init user table method
     @Test
     public void initUserTable() {
@@ -88,7 +62,16 @@ public class UserDaoTest {
         }
     }
 
-    */
+    @Test
+    public void addFollower () {
+
+        for (int i = 0; i < 11; i ++) {
+            for (int j = 1; j < i; j ++) {
+
+                followService.follow(j, ForumDemoAppUtil.ENTITY_USER, i);
+            }
+        }
+    }
 
     /**
      * Test UserDao methods.
