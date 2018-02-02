@@ -52,7 +52,7 @@ public class FollowController {
      * @param userId
      * @return The current number of followees of current user.
      */
-    @RequestMapping (path = {"/follower"}, method = {RequestMethod.GET,
+    @RequestMapping (path = {"/followUser"}, method = {RequestMethod.GET,
             RequestMethod.POST})
     @ResponseBody
     public String followUser (@RequestParam("userId") int userId) {
@@ -91,7 +91,7 @@ public class FollowController {
      * @return The new num of followee about the current user.
      *          (entity that is followed by the current user)
      */
-    @RequestMapping (path = {"/unfollower"}, method = {RequestMethod.POST})
+    @RequestMapping (path = {"/unfollowUser"}, method = {RequestMethod.POST})
     @ResponseBody
     public String unfollowUser (@RequestParam("userId") int userId) {
 
