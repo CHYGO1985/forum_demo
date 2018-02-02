@@ -62,5 +62,9 @@ public class ForumDemoAppUtil {
     /* like/dislike related JSON code*/
     public static final int UPDATE_LIKE_DISLIKE_SUC = 0;
 
-
+    /* follow/unfollow related JSON code*/
+    public static final int FOLLOW_SUCCESS = 0;
+    public static final int FOLLOW_FAIL = 1;
+    public static final int UNFOLLOW_SUCCESS = 0;
+    public static final int UNFOLLOW_FAIL = 1;
 }
