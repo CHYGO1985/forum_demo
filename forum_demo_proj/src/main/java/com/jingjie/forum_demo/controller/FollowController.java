@@ -23,6 +23,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ * The controller for follow/unfollow users and questions.
+ *
+ * @author jingjiejiang
+ * @history
+ * 1. Created on Feb, 2018
+ *
+ */
 @Controller
 public class FollowController {
 
@@ -236,11 +245,11 @@ public class FollowController {
                     followerIds));
         }
 
-        model.addAttribute("followerCount", followService.getFolloweeCount(
+        model.addAttribute("followerCount", followService.getFollowerCount(
                 ForumDemoAppUtil.ENTITY_USER, userId));
         model.addAttribute("curUser", userService.getUserViaId(userId));
 
-        return "followers";
+        return ForumDemoAppUtil.FOLLOWER_TEMPLATE;
     }
 
     /**
@@ -272,7 +281,7 @@ public class FollowController {
                 userId, ForumDemoAppUtil.ENTITY_USER));
         model.addAttribute("curUser", userService.getUserViaId(userId));
 
-        return "followees";
+        return ForumDemoAppUtil.FOLLOWEE_TEMPLATE;
     }
 
     /**
