@@ -58,7 +58,8 @@ public class HomeController {
 
     /**
      *
-     * Get the number of "limit" questions.
+     * Get the number of "limit" questions and the number of followers for
+     * each individual question.
      *
      * @param userId If userID equals 0, then return the lastest question
      *               posted by any user; otherwise, only return quesiton

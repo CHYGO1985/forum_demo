@@ -21,7 +21,14 @@ public class LikeService {
     @Autowired
     JedisAdapter jedisAdapter;
 
-    // get the count of like for a given entity
+    /**
+     *
+     * Get the number of likes regarding a given entity.
+     *
+     * @param entityType
+     * @param entityId
+     * @return
+     */
     public long getLikeCount (int entityType, int entityId) {
 
         String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
@@ -29,7 +36,15 @@ public class LikeService {
         return jedisAdapter.getNumOfMembersViaKey(likeKey);
     }
 
-    // get the like/dislike status of a given user of a given entity
+    /**
+     *
+     * Get the like/dislike status of a given user towards a given entity.
+     *
+     * @param userId
+     * @param entityType
+     * @param entityId
+     * @return
+     */
     public int getLikeStatus (int userId, int entityType, int entityId) {
 
         String likeKey = RedisKeyUtil.getLikeKey(entityType, entityId);
@@ -44,7 +59,15 @@ public class LikeService {
                 ForumDemoAppUtil.DISLIKED_STATUS : ForumDemoAppUtil.NEUTRAl_STATUS;
     }
 
-    // set like status for a given user of a given entity
+    /**
+     *
+     * Set like towards a given entity for a given user.
+     *
+     * @param userId
+     * @param entityType
+     * @param entityId
+     * @return
+     */
     public long like (int userId, int entityType, int entityId) {
 
         // like + 1
@@ -59,8 +82,15 @@ public class LikeService {
         return jedisAdapter.getNumOfMembersViaKey(likeKey);
     }
 
-
-    // set dislike status for a given user of a given entity
+    /**
+     *
+     * Set dislike status towards a given entity for a given user.
+     *
+     * @param userId
+     * @param entityType
+     * @param entityId
+     * @return
+     */
     public long dislike (int userId, int entityType, int entityId) {
 
         // dislike + 1

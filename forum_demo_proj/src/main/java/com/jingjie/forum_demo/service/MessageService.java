@@ -32,18 +32,44 @@ public class MessageService {
     }
 
 
+    /**
+     *
+     * Get a conversation via an conversation id.
+     *
+     * @param convoId
+     * @param offset
+     * @param limit
+     * @return
+     */
     public List<Message> getConvosViaId (String convoId, int offset, int limit) {
 
         return messageDao.getConvosViaId(convoId, offset, limit);
     }
 
-    // get convos and the num of convos send to and from a user with limit, offset and in desc by createDate
+    /**
+     *
+     * Get a list of messages regarding a conversation that is related to a
+     * given user, including messsages are sent from and sent to the user.
+     *
+     * @param userId
+     * @param offset
+     * @param limit
+     * @return
+     */
     public List<Message> getConversationList (int userId, int offset, int limit) {
 
         return messageDao.getConversationList(userId, offset, limit);
     }
 
-    // get the number of unread message send to a user with certain convo id
+    /**
+     *
+     * Get the number of unread messages sent to a user with respect to a
+     * given conversation id.
+     *
+     * @param userId
+     * @param convoId
+     * @return
+     */
     public int getUnreadMsgCount (int userId, String convoId) {
 
         return messageDao.getUnreadMsgCount(userId, convoId);
