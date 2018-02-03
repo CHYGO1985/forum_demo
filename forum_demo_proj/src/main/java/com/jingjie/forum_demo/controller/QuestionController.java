@@ -47,6 +47,14 @@ public class QuestionController {
     @Autowired
     FollowService followService;
 
+    /**
+     *
+     * Add a question.
+     *
+     * @param title
+     * @param content
+     * @return
+     */
     @RequestMapping (value = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
     public String addQuestion(@RequestParam("title") String title,
@@ -87,6 +95,17 @@ public class QuestionController {
                 ForumDemoAppUtil.QUESTOON_SUBMIT_FAIL, "Submit Failed!");
     }
 
+    /**
+     *
+     * Show details of a given question, includes:
+     * 1) title, content
+     * 2) the poster
+     * 3) limited number of followers information
+     *
+     * @param model
+     * @param qid
+     * @return
+     */
     @RequestMapping (path = {"/question/{qid}"}, method = {RequestMethod.GET})
     public String showQuestionViaId (Model model,
                                      @PathVariable("qid") int qid) {

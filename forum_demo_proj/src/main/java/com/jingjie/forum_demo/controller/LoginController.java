@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  *
- * The controller for login and register.
+ * The controller for login/register related operations.
  *
  * @author jingjiejiang
  * @history
@@ -34,8 +34,20 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-    // The method for register a user, password and username will be passed from
-    // a form
+    /**
+     *
+     * To register a new user. If the user visits a page of the site before
+     * register, return to the exact page after the user has registered.
+     *
+     * @param model
+     * @param username
+     * @param password
+     * @param next The link of previous page of the website that a user visted
+     *             before
+     * @param isRemembered whether the browser needs to remember the user.
+     * @param httpServletResponse
+     * @return
+     */
     @RequestMapping (path = {"/reg/"}, method = {RequestMethod.POST})
     public String register (Model model,
                             @RequestParam("username") String username,
@@ -84,7 +96,14 @@ public class LoginController {
         }
     }
 
-    // The method for both login and register
+    /**
+     *
+     * Register or login page.
+     *
+     * @param model
+     * @param next
+     * @return
+     */
     @RequestMapping (path = {"/regislogin"}, method = {RequestMethod.GET})
     public String registerAndLogin (Model model,
                                     @RequestParam(value = "next",
@@ -95,7 +114,20 @@ public class LoginController {
         return ForumDemoAppUtil.LOGIN_TEMPLATE;
     }
 
-    // The method for login a user.
+    /**
+     *
+     * Login a user. If the user has visited a page of the site before login,
+     * redirect to the exact page after the user has login.
+     *
+     * @param model
+     * @param username
+     * @param password
+     * @param next The link of the page of the website that a user visited
+     *             before login.
+     * @param isRemembered Whether the brower needs to remember the user.
+     * @param httpServletResponse
+     * @return
+     */
     @RequestMapping (path = {"/login/"}, method = {RequestMethod.POST})
     public String login (Model model,
                          @RequestParam("username") String username,
@@ -142,6 +174,13 @@ public class LoginController {
         }
     }
 
+    /**
+     *
+     * Logout.
+     *
+     * @param ticket
+     * @return
+     */
     @RequestMapping (path = {"/logout"}, method = {RequestMethod.GET,
             RequestMethod.POST})
     public String logout(@CookieValue(ForumDemoAppUtil.USER_TOKEN) String ticket) {

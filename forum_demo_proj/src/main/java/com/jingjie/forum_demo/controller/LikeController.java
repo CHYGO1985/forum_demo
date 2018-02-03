@@ -41,7 +41,13 @@ public class LikeController {
     @Autowired
     EventProducer eventProducer;
 
-
+    /**
+     *
+     * Like a comment.
+     *
+     * @param commentId
+     * @return The number of likes regarding the given comment.
+     */
     @RequestMapping (path = "/like", method = {RequestMethod.POST})
     @ResponseBody
     public String like (@RequestParam("commentId") int commentId) {
@@ -54,14 +60,14 @@ public class LikeController {
 
         // get the liked comment
         Comment comment = commentService.getCommentViaId(commentId);
-        // trigger a like event
+        // trigger a like event for sending a message
         eventProducer.triggerEvent(new EventModel(EventType.LIkE).
                 setActorId(user.getId()).setEntityOwnerId(comment.getUserId()).
                 setEntityType(ForumDemoAppUtil.ENTITY_COMMENT).
                 setEntityId(commentId).setExtension("questionId",
                 String.valueOf(comment.getEntityId())));
 
-
+        // get like count
         long likeCount = likeService.like(user.getId(),
                 ForumDemoAppUtil.ENTITY_COMMENT,
                 commentId);
@@ -71,6 +77,13 @@ public class LikeController {
                     String.valueOf(likeCount));
     }
 
+    /**
+     *
+     * Dislike a comment.
+     *
+     * @param commentId
+     * @return The number of dislikes regarding the given comment.
+     */
     @RequestMapping (path = "/dislike", method = {RequestMethod.POST})
     @ResponseBody
     public String dislike (@RequestParam("commentId") int commentId) {

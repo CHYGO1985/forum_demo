@@ -47,6 +47,14 @@ public class MessageController {
     @Autowired
     UserService userService;
 
+    /**
+     *
+     * Get a limited num of messages that was send or received by the given
+     * user.
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping (path = {"msg/list"}, method = {RequestMethod.GET})
     public String getConvoList (Model model) {
 
@@ -81,6 +89,14 @@ public class MessageController {
         return ForumDemoAppUtil.LETTER_TEMPLATE;
     }
 
+    /**
+     *
+     * Get limited number of messages regarding a given conversation.
+     *
+     * @param model
+     * @param convoId
+     * @return
+     */
     @RequestMapping (path = {"/msg/detail"}, method = {RequestMethod.GET})
     public String getConvoDetails(Model model, @RequestParam("convoId") String convoId) {
 
@@ -108,7 +124,14 @@ public class MessageController {
         return ForumDemoAppUtil.LETTER_DETAIL_TEMPLATE;
     }
 
-
+    /**
+     *
+     * Add a message.
+     *
+     * @param toName
+     * @param content
+     * @return
+     */
     @RequestMapping (path = {"/msg/addMessage"}, method = {RequestMethod.POST})
     @ResponseBody
     public String addMessage(@RequestParam ("toName") String toName,
