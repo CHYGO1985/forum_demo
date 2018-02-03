@@ -233,8 +233,12 @@ public class FollowController {
     public String showFollowers (Model model,
                                  @PathVariable("userId") int userId) {
 
-        List<Integer> followerIds = followService.getFollowees(userId,
-                ForumDemoAppUtil.ENTITY_USER, MIN_ITEMS_NUM);
+        List<Integer> followerIds = followService.getFollowersId(
+                ForumDemoAppUtil.ENTITY_USER,
+                userId,
+                MIN_ITEMS_NUM
+        );
+
         User user = userHolder.getUser();
         if (user != null) {
             model.addAttribute("followers", getUsersInfor(user.getId(),
