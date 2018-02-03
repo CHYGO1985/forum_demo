@@ -38,7 +38,7 @@
                                                 <a class="zm-item-vote-count js-expand js-vote-count" href="javascript:;" data-bind-votecount="">${(viewObj.followCount) ! "0"}</a></div>
                                             <div class="zm-item-answer-author-info">
                                                 <a class="author-link" data-tip="p$b$amuro1230" target="_blank" href="/userId/${(viewObj.user.id) !}">${(viewObj.user.name) ! "Default User"}</a>
-                                                ，${(viewObj.question.createDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}</div>
+                                                ，${(viewObj.question.createdDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}</div>
                                             <div class="zm-item-vote-info" data-votecount="4168" data-za-module="VoteInfo">
                                                 <span class="voters text">
                                                     <a href="#" class="more text">

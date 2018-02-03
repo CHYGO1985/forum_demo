@@ -27,7 +27,7 @@ public interface CommentDao {
     int getUserCommentCount(int userId);
 
     @Insert ({"insert into " + COMMENT_TABLE + " (" + INSERT_FIELDS + ") " +
-            "values (#{userId}, #{createDate}, #{entityId}, #{entityType}, #{content}, #{status})"})
+            "values (#{userId}, #{createdDate}, #{entityId}, #{entityType}, #{content}, #{status})"})
     int addComment(Comment comment);
 
     @Select ({"select " + SELECT_FIELDS + " from " + COMMENT_TABLE + " where entity_id = #{entityId} and entity_type = #{entityType} " +

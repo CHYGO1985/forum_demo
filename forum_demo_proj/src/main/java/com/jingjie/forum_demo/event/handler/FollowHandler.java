@@ -39,7 +39,7 @@ public class FollowHandler implements EventHandler {
         Message message = new Message();
         message.setFromId(ForumDemoAppUtil.SYS_USER);
         message.setToId(model.getEntityOwnerId());
-        message.setCreateDate(new Date());
+        message.setCreatedDate(new Date());
         User user = userService.getUserViaId(model.getActorId());
 
         if (model.getEntityType() == ForumDemoAppUtil.ENTITY_QUESTION) {

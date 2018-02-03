@@ -55,7 +55,7 @@ public class CommentController {
             // comment.setCreateDate(new Date());
 
             Calendar cal = Calendar.getInstance();
-            comment.setCreateDate(new Timestamp(cal.getTimeInMillis()));
+            comment.setCreatedDate(new Timestamp(cal.getTimeInMillis()));
 
             comment.setEntityId(questionId);
             comment.setEntityType(ForumDemoAppUtil.ENTITY_QUESTION);

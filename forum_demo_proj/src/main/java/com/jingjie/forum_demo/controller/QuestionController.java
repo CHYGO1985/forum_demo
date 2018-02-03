@@ -65,7 +65,7 @@ public class QuestionController {
             // created a new question instance
             Question question = new Question();
             question.setTitle(title);
-            question.setCreateDate(new Date());
+            question.setCreatedDate(new Date());
             question.setContent(content);
             question.setCommentCount(0);
 

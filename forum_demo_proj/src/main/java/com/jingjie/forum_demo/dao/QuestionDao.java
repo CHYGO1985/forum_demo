@@ -22,7 +22,7 @@ public interface QuestionDao {
 
     // insert question into question table
     @Insert ({"insert into ", QUSTION_TABLE, " (", INSERT_FIELDS,
-            ") values (#{title}, #{content}, #{userId}, #{createDate}, #{commentCount})"})
+            ") values (#{title}, #{content}, #{userId}, #{createdDate}, #{commentCount})"})
     int addQuestion(Question question);
 
     // get a question via its id

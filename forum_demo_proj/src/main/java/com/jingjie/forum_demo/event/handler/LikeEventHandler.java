@@ -45,7 +45,7 @@ public class LikeEventHandler implements EventHandler {
         Message message = new Message();
         message.setFromId(ForumDemoAppUtil.SYS_USER);
         message.setToId(model.getEntityOwnerId());
-        message.setCreateDate(new Date());
+        message.setCreatedDate(new Date());
         User user = userService.getUserViaId(model.getActorId());
         message.setContent("The user " + user.getName() + " liked your comment, " +
                 "http://127.0.0.1:8080/question/" + model.getValueInExt("questionId"));

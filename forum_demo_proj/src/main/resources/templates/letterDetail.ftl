@@ -13,7 +13,7 @@
                     <div class="tooltip-arrow"></div>
                     <div class="tooltip-inner letter-chat clearfix">
                         <div class="letter-info">
-                            <p class="letter-time">${(convo.message.createDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}</p>
+                            <p class="letter-time">${(convo.message.createdDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}</p>
                             <!-- <a href="javascript:void(0);" id="del-link" name="4009580">删除</a> -->
                         </div>
                         <p class="chat-content">

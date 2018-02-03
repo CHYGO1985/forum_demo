@@ -8,7 +8,7 @@
                 <li id="conversation-item-10005_622873">
                     <a class="letter-link" href="/msg/detail?convoId=${convo.message.convoId}"></a>
                     <div class="letter-info">
-                        <span class="l-time">${(convo.message.createDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}</span>
+                        <span class="l-time">${(convo.message.createdDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}</span>
                         <div class="l-operate-bar">
                             <!--<a href="javascript:void(0);" class="sns-action-del" data-id="10005_622873">
                             删除

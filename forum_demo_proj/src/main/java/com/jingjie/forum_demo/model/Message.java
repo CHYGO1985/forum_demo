@@ -17,7 +17,7 @@ public class Message {
     private int fromId;
     private int toId;
     private String content;
-    private Date createDate;
+    private Date createdDate;
     private int hasRead;
     private String convoId;
 
@@ -53,12 +53,12 @@ public class Message {
         this.content = content;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(Date createDate) {
+        this.createdDate = createDate;
     }
 
     public int getHasRead() {

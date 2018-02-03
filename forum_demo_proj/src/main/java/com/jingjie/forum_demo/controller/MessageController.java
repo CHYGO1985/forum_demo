@@ -153,7 +153,7 @@ public class MessageController {
 
             Message message = new Message();
             message.setContent(content);
-            message.setCreateDate(new Date());
+            message.setCreatedDate(new Date());
             message.setFromId(fromUser.getId());
             message.setToId(toUser.getId());
             message.setConvoId(message.getConvoId());

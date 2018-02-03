@@ -16,7 +16,7 @@ public class Comment {
     private int id;
     private String content;
     private int userId;
-    private Timestamp createDate;
+    private Timestamp createdDate;
     private int entityId;
     private int entityType;
     private int status;
@@ -73,11 +73,12 @@ public class Comment {
         this.status = status;
     }
 
-    public Timestamp getCreateDate() {
-        return createDate;
+    public Timestamp getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(Timestamp createdDate) {
+        this.createdDate = createdDate;
     }
+
 }

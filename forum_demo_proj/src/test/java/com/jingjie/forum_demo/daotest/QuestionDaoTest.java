@@ -45,7 +45,7 @@ public class QuestionDaoTest {
             question.setTitle(String.format("Test %d", i + 1));
             Date date = new Date();
             date.setTime(date.getTime() + 1000 * 3600 * i * 5);
-            question.setCreateDate(date);
+            question.setCreatedDate(date);
             question.setContent(String.format("XXXXXX %d", i + 1));
             question.setCommentCount(i);
 

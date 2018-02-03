@@ -16,11 +16,9 @@ public class Question {
     private String title;
     private String content;
     private int userId;
-    private Date createDate;
+    private Date createdDate;
     private int commentCount;
 
-    // NOTE: The createDate must be initialised, otherwise it will not receive date ]
-    // from datebase when reading
     public Question() {
     }
 
@@ -56,12 +54,12 @@ public class Question {
         this.userId = userId;
     }
 
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public int getCommentCount() {

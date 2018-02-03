@@ -111,7 +111,7 @@
                     <a class="zg-anchor-hidden ac" name="22162611-comment"></a>
                     <div class="zm-item-meta answer-actions clearfix js-contentActions">
                         <div class="zm-meta-panel">
-                            <a itemprop="url" class="answer-data-link meta-item" target="_blank" href="">发布于 ${(comment.comment.createDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}
+                            <a itemprop="url" class="answer-data-link meta-item" target="_blank" href="">发布于 ${(comment.comment.createdDate?string('yyyy-MM-dd HH:mm:ss')) ! "1900-01-01"}
                             <a href="" name="addcomment" class="meta-item toggle-comment js-toggleCommentBox">
                                 <i class="z-icon-comment"></i>4 条评论</a>
 

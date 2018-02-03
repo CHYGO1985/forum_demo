@@ -26,7 +26,7 @@ public interface MessageDao {
 
     // add message
     @Insert ({"insert into " + MESSAGE_TABLE + " (" + INSERT_FIELDS + ") values " +
-            "(#{fromId}, #{toId}, #{content}, #{createDate}, #{hasRead}, #{convoId})"})
+            "(#{fromId}, #{toId}, #{content}, #{createdDate}, #{hasRead}, #{convoId})"})
     int addMessage(Message message);
 
     // get convos via convo_id with limit, offer and in desc order by createDate
