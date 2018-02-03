@@ -35,7 +35,7 @@ import java.util.List;
 public class MessageController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private static final int DEF_OFFSET = 10;
+    private static final int DEF_OFFSET = 0;
     private static final int NUM_LIMIT = 10;
 
     @Autowired
