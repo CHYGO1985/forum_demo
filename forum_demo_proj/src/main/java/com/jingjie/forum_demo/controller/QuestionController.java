@@ -1,10 +1,7 @@
 package com.jingjie.forum_demo.controller;
 
 import com.jingjie.forum_demo.model.*;
-import com.jingjie.forum_demo.service.CommentService;
-import com.jingjie.forum_demo.service.LikeService;
-import com.jingjie.forum_demo.service.QuestionService;
-import com.jingjie.forum_demo.service.UserService;
+import com.jingjie.forum_demo.service.*;
 import com.jingjie.forum_demo.util.ForumDemoAppUtil;
 import com.jingjie.forum_demo.util.JSONUtil;
 import org.slf4j.Logger;
@@ -30,6 +27,7 @@ import java.util.List;
 public class QuestionController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final int FOLLOWER_LIMIT = 20;
 
     @Autowired
     QuestionService questionService;
@@ -45,6 +43,9 @@ public class QuestionController {
 
     @Autowired
     LikeService likeService;
+
+    @Autowired
+    FollowService followService;
 
     @RequestMapping (value = {"/question/add"}, method = {RequestMethod.POST})
     @ResponseBody
@@ -124,6 +125,42 @@ public class QuestionController {
             comments.add(obj);
         }
         model.addAttribute("comments", comments);
+
+        // get followers infor
+        List<Integer> followerIds = followService.getFollowersId(
+                ForumDemoAppUtil.ENTITY_QUESTION,
+                qid,
+                FOLLOWER_LIMIT
+        );
+        List<ViewObject> followUsers = new LinkedList<>();
+
+        for (Integer userId : followerIds) {
+
+            User user = userService.getUserViaId(userId);
+            if (user == null) {
+                continue;
+            }
+
+            ViewObject obj = new ViewObject();
+            obj.set("name", user.getName());
+            obj.set("headUrl", user.getHeadUrl());
+            obj.set("id", user.getId());
+            followUsers.add(obj);
+        }
+
+        model.addAttribute("followUsers", followUsers);
+        // check whether current login user follows the question
+        User loginUser = userHolder.getUser();
+        if (loginUser != null) {
+            model.addAttribute("followed",
+                    followService.isFollower(loginUser.getId(),
+                            ForumDemoAppUtil.ENTITY_QUESTION,
+                            qid
+                            ));
+        }
+        else {
+            model.addAttribute("followed", false);
+        }
 
         return "detail";
     }

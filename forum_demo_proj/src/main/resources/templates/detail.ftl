@@ -31,7 +31,7 @@
             </div>
             <div class="zm-side-section">
                 <div class="zm-side-section-inner" id="zh-question-side-header-wrap">
-                    <#if $followed?has_content>
+                    <#if $followed?has_content && followed == true>
                     <button class="follow-button zg-follow zg-btn-white js-follow-question" data-id="${question.id}"
                             data-status="1">
                         取消关注
@@ -43,15 +43,15 @@
                     </#if>
                     <div class="zh-question-followers-sidebar">
                         <div class="zg-gray-normal">
-                            <a href="javascript:void(0);"><strong class="js-user-count">${(followUsers.size()) ! "0"}</strong></a>人关注该问题
+                            <a href="javascript:void(0);"><strong class="js-user-count">${followUsers?size}</strong></a>人关注该问题
                         </div>
                         <div class="list zu-small-avatar-list zg-clear js-user-list">
                             <!-- following if is to use when follower functions is not added-->
                             <#if followUsers?has_content>
-                            <#list followUsers as vo>
-                            <a class="zm-item-link-avatar js-user-${vo.id}" href="/user/${vo.id}"
-                               data-original_title="${vo.name}">
-                                <img src="${(vo.headUrl) !}"
+                            <#list followUsers as obj>
+                            <a class="zm-item-link-avatar js-user-${obj.id}" href="/user/${obj.id}"
+                               data-original_title="${obj.name}">
+                                <img src="${(obj.headUrl) !}"
                                      class="zm-item-img-avatar"></a>
                             </#list>
                             </#if>
