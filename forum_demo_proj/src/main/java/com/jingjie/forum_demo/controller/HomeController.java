@@ -79,6 +79,10 @@ public class HomeController {
 
             ViewObject viewObject = new ViewObject();
             viewObject.set("question", question);
+            viewObject.set("followCount", followService.getFollowerCount(
+                    ForumDemoAppUtil.ENTITY_QUESTION,
+                    question.getId()
+            ));
             viewObject.set("user", userService.getUserViaId(
                     question.getUserId()));
 
