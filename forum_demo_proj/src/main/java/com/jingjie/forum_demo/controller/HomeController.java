@@ -37,6 +37,9 @@ public class HomeController {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private static final boolean IS_NOT_FOLLOW = false;
+    private static final int ANY_USER = 0;
+    private static final int DEF_OFFSET = 0;
+    private static final int NUMBER_LIMIT = 10;
 
     @Autowired
     QuestionService questionService;
@@ -96,7 +99,8 @@ public class HomeController {
     @RequestMapping (path = {"/", "/index"}, method = {RequestMethod.GET})
     public String home(Model model) {
 
-        model.addAttribute("viewObjList", getLastestQuestionsInfo(0, 0, 10));
+        model.addAttribute("viewObjList", getLastestQuestionsInfo(ANY_USER,
+                DEF_OFFSET, NUMBER_LIMIT));
         return ForumDemoAppUtil.INDEX_TEMPLATE;
     }
 
@@ -117,7 +121,8 @@ public class HomeController {
     @RequestMapping (path = {"/userId/{userId}"}, method = {RequestMethod.GET})
     public String home(Model model, @PathVariable("userId") int userId) {
 
-        model.addAttribute("viewObjList", getLastestQuestionsInfo(userId, 0, 10));
+        model.addAttribute("viewObjList", getLastestQuestionsInfo(userId,
+                DEF_OFFSET, NUMBER_LIMIT));
         User user = userService.getUserViaId(userId);
         ViewObject viewObj = new ViewObject();
 

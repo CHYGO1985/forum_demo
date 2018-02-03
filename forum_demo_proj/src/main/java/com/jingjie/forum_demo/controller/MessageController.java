@@ -35,6 +35,8 @@ import java.util.List;
 public class MessageController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private static final int DEF_OFFSET = 10;
+    private static final int NUM_LIMIT = 10;
 
     @Autowired
     UserHolder userHolder;
@@ -56,7 +58,8 @@ public class MessageController {
 
         // get convo list via user id
         int userId = user.getId();
-        List<Message> messages = messageService.getConversationList(userId, 0, 10);
+        List<Message> messages = messageService.getConversationList(userId,
+                DEF_OFFSET, NUM_LIMIT);
         List<ViewObject> convoInfor = new LinkedList<>();
 
         // add message, user and unread msg infor to model
@@ -75,7 +78,7 @@ public class MessageController {
         }
         model.addAttribute("convoInfor", convoInfor);
 
-        return "letter";
+        return ForumDemoAppUtil.LETTER_TEMPLATE;
     }
 
     @RequestMapping (path = {"/msg/detail"}, method = {RequestMethod.GET})
@@ -83,7 +86,8 @@ public class MessageController {
 
         try {
 
-            List<Message> msgList = messageService.getConvosViaId(convoId, 0, 10);
+            List<Message> msgList = messageService.getConvosViaId(convoId,
+                    DEF_OFFSET, NUM_LIMIT);
             List<ViewObject> convos = new LinkedList<>();
 
             for (Message message : msgList) {
@@ -101,7 +105,7 @@ public class MessageController {
             logger.error("Fail to get the message details: " + ex.getMessage());
         }
 
-        return "letterDetail";
+        return ForumDemoAppUtil.LETTER_DETAIL_TEMPLATE;
     }
 
 

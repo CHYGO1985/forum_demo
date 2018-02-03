@@ -19,6 +19,8 @@ public class ForumDemoAppUtil {
     public static final String USER_PROFILE_TEMPLATE = "profile";
     public static final String FOLLOWEE_TEMPLATE = "followees";
     public static final String FOLLOWER_TEMPLATE = "followers";
+    public static final String LETTER_TEMPLATE = "letter";
+    public static final String LETTER_DETAIL_TEMPLATE = "letterDetail";
 
 
     /* Login related constants */
