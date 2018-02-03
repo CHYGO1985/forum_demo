@@ -1,6 +1,6 @@
 package com.jingjie.forum_demo.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  *
@@ -16,14 +16,13 @@ public class Comment {
     private int id;
     private String content;
     private int userId;
-    private Date createDate;
+    private Timestamp createDate;
     private int entityId;
     private int entityType;
     private int status;
 
     public Comment() {
 
-        //createDate = new Date();
     }
 
     public int getId() {
@@ -74,11 +73,11 @@ public class Comment {
         this.status = status;
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 }

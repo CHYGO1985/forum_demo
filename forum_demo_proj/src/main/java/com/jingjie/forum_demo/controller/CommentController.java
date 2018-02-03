@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -40,24 +43,27 @@ public class CommentController {
     @Autowired
     QuestionService questionService;
 
-    @RequestMapping (path = {"/addComment"}, method = {RequestMethod.POST})
-    public String addComment (@RequestParam("questionId") int questionId,
-                              @RequestParam("content") String content) {
+    @RequestMapping(path = {"/addComment"}, method = {RequestMethod.POST})
+    public String addComment(@RequestParam("questionId") int questionId,
+                             @RequestParam("content") String content) {
 
         try {
 
             // add a new comment
             Comment comment = new Comment();
             comment.setContent(content);
-            comment.setCreateDate(new Date());
+            // comment.setCreateDate(new Date());
+
+            Calendar cal = Calendar.getInstance();
+            comment.setCreateDate(new Timestamp(cal.getTimeInMillis()));
+
             comment.setEntityId(questionId);
             comment.setEntityType(ForumDemoAppUtil.ENTITY_QUESTION);
 
             User user = userHolder.getUser();
             if (user == null) {
                 comment.setUserId(ForumDemoAppUtil.ANONYMOUS_USERID);
-            }
-            else {
+            } else {
                 comment.setUserId(user.getId());
             }
 
@@ -65,12 +71,11 @@ public class CommentController {
             commentService.addComment(comment);
 
             // update comment count of the question
-            int count  = commentService.getCommentCountViaEntityType(questionId,
+            int count = commentService.getCommentCountViaEntityType(questionId,
                     comment.getEntityType());
 
             questionService.updateCommentCount(questionId, count);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
 
             logger.error("Fail to add a comment: " + ex);
         }

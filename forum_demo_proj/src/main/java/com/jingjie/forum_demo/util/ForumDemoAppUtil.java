@@ -22,6 +22,7 @@ public class ForumDemoAppUtil {
     public static final String LETTER_TEMPLATE = "letter";
     public static final String LETTER_DETAIL_TEMPLATE = "letterDetail";
 
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
     /* Login related constants */
     public static final String USER_TOKEN = "ticket";
