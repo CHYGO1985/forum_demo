@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
  *
  * The class is for put a event <String:key, String: EventModel> into
  * event queue.
+ * TODO: Add producer and consumer interface.
  *
  * @author jingjiejiang
  * @hsitory
